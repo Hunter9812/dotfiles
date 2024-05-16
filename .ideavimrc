@@ -1,0 +1,83 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+set noeb
+" 鼠标悬停预览
+nnoremap gh :action QuickJavaDoc<cr>
+
+" 设置前导键
+let mapleader="\<Space>"
+
+" 暂时取消搜索高亮快捷键
+nnoremap <silent> <Leader>l :<C-u>nohlsearch<CR><C-l>
+
+" 定义快捷键到行首和行尾
+map H ^
+map L $
+" 定义快速跳转
+nmap <Leader>t <C-]>
+" 定义快速跳转回退
+nmap <Leader>T <C-t>
+
+" 文件操作相关
+" 定义快捷键关闭当前分割窗口
+nmap <Leader>q :q<CR>
+" 定义快捷键保存当前窗口内容
+nmap <Leader>w :w<CR>
+
+" Focus center or current cursor position after \"J\"
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+nnoremap j jzz
+nnoremap k kzz
+
+" map esc to jk in insert mode
+inoremap jk <ESC>
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>wq :wq<CR>
+
+nnoremap E :tabprev<CR>
+nnoremap R :tabnext<CR>

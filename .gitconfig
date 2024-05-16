@@ -1,0 +1,15 @@
+[user]
+	name = Hunter Wang
+	email = hunter9812@qq.com
+[core]
+	editor = code
+[http "https://github.com"]
+	sslVerify = false
+[http]
+	lowSpeedLimit = 1000
+	lowSpeedTime = 600
+[alias]
+	cm = commit -m
+	st = status
+[init]
+	defaultBranch = master
