@@ -3,8 +3,6 @@
 	email = hunter9812@qq.com
 [core]
 	editor = code
-[http "https://github.com"]
-	sslVerify = false
 [http]
 	lowSpeedLimit = 1000
 	lowSpeedTime = 600
