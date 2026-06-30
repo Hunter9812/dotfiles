@@ -1,0 +1,70 @@
+# config for imv
+# see https://github.com/eXeC64/imv/blob/2144bea537bff9defc81c34517a939bf361fd736/files/imv_config
+
+[options]
+
+# Suppress built-in key bindings, and specify them explicitly in this
+# config file.
+suppress_default_binds = true
+overlay_font = Monospace:12
+
+[aliases]
+# Define aliases here. Any arguments passed to an alias are appended to the
+# command.
+# alias = command to run
+
+[binds]
+# Define some key bindings
+q = quit
+# y = exec echo working!
+
+# Image navigation
+# ←→, ^h^l, HL, []
+<Left> = prev
+<Right> = next
+<Ctrl+h> = prev
+<Ctrl+l> = next
+<Shift+H> = prev
+<Shift+L> = next
+<bracketleft> = prev
+<bracketright> = next
+gg = goto 1
+<Shift+G> = goto -1
+
+# Panning
+j = pan 0 -50
+k = pan 0 50
+h = pan 50 0
+l = pan -50 0
+
+# Zooming
+# ↑↓, +-, io
+<Up> = zoom 1
+<Down> = zoom -1
+<Shift+plus> = zoom 1
+<minus> = zoom -1
+0 = reset
+i = zoom 1
+o = zoom -1
+
+# Rotate Clockwise by 90 degrees
+<Ctrl+r> = rotate by 90
+
+# Other commands
+x = close
+f = fullscreen
+<Ctrl+i> = overlay
+p = exec echo $imv_current_file | wl-copy
+c = center
+s = scaling next
+<Shift+S> = upscaling next
+a = zoom actual
+r = reset
+
+# Gif playback
+<period> = next_frame
+<space> = toggle_playing
+
+# Slideshow control
+t = slideshow +1
+<Shift+T> = slideshow -1

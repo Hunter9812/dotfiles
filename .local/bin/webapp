@@ -1,0 +1,304 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+APP_DIR="$HOME/.local/share/applications"
+# [Icon Theme Specification](https://specifications.freedesktop.org/icon-theme/latest/)
+ICON_DIR="$HOME/.local/share/icons/hicolor"
+PREFIX="webapp"
+
+usage() {
+    cat <<EOF
+Usage:
+  webapp list
+  webapp info <name>
+  webapp add <name> <url> [options]
+  webapp rm <name>
+  webapp config <name> <key> [value]
+  webapp -h, --help
+
+Options:
+  add:
+    -i, --icon <path>      Set icon path
+    -c, --comment <text>   Set comment text
+
+  config:
+    <value>                Set value
+    (omit value)           Remove key
+EOF
+}
+
+die_usage() {
+    usage
+    exit 1
+}
+
+slugify() {
+    echo "$1" \
+        | tr '[:upper:]' '[:lower:]' \
+        | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//'
+}
+
+desktop_file() {
+    local slug
+    slug=$(slugify "$1")
+    echo "$APP_DIR/${PREFIX}-${slug}.desktop"
+}
+
+icon_name() {
+    local slug
+    slug=$(slugify "$1")
+    echo "${PREFIX}-${slug}"
+}
+
+normalize_url() {
+    local url="$1"
+
+    if [[ ! "$url" =~ ^[a-zA-Z][a-zA-Z0-9+.-]*: ]]; then
+        url="https://$url"
+    fi
+
+    echo "$url"
+}
+
+domain_from_url() {
+    local url="$1"
+
+    url="${url#http://}"
+    url="${url#https://}"
+    echo "${url%%/*}"
+}
+
+get_proxy_arg() {
+    local proxy=""
+
+    for var in \
+        https_proxy \
+        HTTPS_PROXY \
+        http_proxy \
+        HTTP_PROXY
+    do
+        if [[ -n "${!var:-}" ]]; then
+            proxy="${!var}"
+            break
+        fi
+    done
+
+    if [[ -n "$proxy" ]]; then
+        printf '%s' "--proxy-server=$proxy"
+    fi
+}
+
+download_icon() {
+    local name="$1"
+    local url="$2"
+    local custom_icon="${3:-}"
+
+    local icon
+    icon=$(icon_name "$name")
+
+    local dir="$ICON_DIR/256x256/apps"
+    local file="$dir/${icon}.png"
+
+    mkdir -p "$dir"
+
+    if [[ -n "$custom_icon" ]]; then
+        install -Dm644 "$custom_icon" "$file"
+    else
+        local domain
+        domain=$(domain_from_url "$url")
+
+        curl -fsSL \
+            "https://www.google.com/s2/favicons?domain=${domain}&sz=256" \
+            | install -Dm644 /dev/stdin "$file" || {
+                echo "failed to download icon for $domain"
+                return 1
+            }
+    fi
+}
+
+cmd_list() {
+    shopt -s nullglob
+
+    local file
+
+    for file in "$APP_DIR"/${PREFIX}-*.desktop; do
+        local name
+        local url
+
+        name=$(grep '^Name=' "$file" | cut -d= -f2-)
+        url=$(grep '^X-WebApp-URL=' "$file" | cut -d= -f2-)
+
+        echo "$name"
+        echo "  URL: $url"
+        echo
+    done
+}
+
+cmd_info() {
+    local file
+    file=$(desktop_file "$1")
+
+    [[ -f "$file" ]] || {
+        echo "Not found"
+        exit 1
+    }
+
+    cat "$file"
+}
+
+cmd_add() {
+    local name="$1"
+    local url="$2"
+    shift 2
+
+    local icon_path=""
+    local comment=""
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --icon|-i)
+                icon_path="${2:-}"
+                shift 2
+                ;;
+            --comment|-c)
+                comment="${2:-}"
+                shift 2
+                ;;
+            *)
+                echo "Unknown option: $1"
+                usage
+                ;;
+        esac
+    done
+
+    url=$(normalize_url "$url")
+
+    local desktop
+    desktop=$(desktop_file "$name")
+
+    if [[ -f "$desktop" ]]; then
+        echo "Already exists:"
+        echo "  $desktop"
+        exit 1
+    fi
+
+    local icon
+    icon=$(icon_name "$name")
+
+    download_icon "$name" "$url" "$icon_path"
+
+    local proxy_arg
+    proxy_arg=$(get_proxy_arg)
+
+    local domain
+    domain=$(domain_from_url "$url")
+
+    cat > "$desktop" <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+StartupNotify=true
+Name=$name
+Comment=$comment
+Exec=google-chrome-stable $proxy_arg --app=$url
+Icon=$icon
+StartupWMClass=chrome-${domain}__-Default
+X-WebApp-URL=$url
+Categories=Network;WebBrowser;
+EOF
+
+    update-desktop-database "$APP_DIR" >/dev/null 2>&1 || true
+
+    echo "Created:"
+    echo "  $desktop"
+}
+
+cmd_rm() {
+    local name="$1"
+
+    local desktop
+    desktop=$(desktop_file "$name")
+
+    [[ -f "$desktop" ]] || {
+        echo "Not found"
+        exit 1
+    }
+
+    local icon
+    icon=$(icon_name "$name")
+
+    rm -f "$desktop"
+    rm -f "$ICON_DIR/256x256/apps/${icon}.png"
+
+    update-desktop-database "$APP_DIR" >/dev/null 2>&1 || true
+
+    echo "Removed: $name"
+}
+
+escape_sed() {
+    printf '%s' "$1" | sed 's/[]\/$*.^|[]/\\&/g'
+}
+
+cmd_config() {
+    local name="$1"
+    local key="$2"
+    local value="$3"
+
+    local desktop
+    desktop=$(desktop_file "$name")
+
+    [[ -f "$desktop" ]] || {
+        echo "Not found"
+        exit 1
+    }
+
+    if [[ -z "$value" ]]; then
+        local k
+        k=$(escape_sed "$key")
+
+        sed -i "/^${k}=.*/d" "$desktop"
+        echo "Removed: $key"
+        return 0
+    fi
+
+    if grep -q "^${key}=" "$desktop"; then
+        sed -i "s|^${key}=.*|${key}=${value}|" "$desktop"
+    else
+        echo "${key}=${value}" >> "$desktop"
+    fi
+
+    echo "Updated: $key=$value"
+}
+
+[[ $# -ge 1 ]] || die_usage
+
+case "$1" in
+-h|--help)
+    usage
+    exit 0
+    ;;
+list)
+    cmd_list
+    ;;
+info)
+    [[ $# -eq 2 ]] || die_usage
+    cmd_info "$2"
+    ;;
+add)
+    [[ $# -ge 3 ]] || die_usage
+    cmd_add "${@:2}"
+    ;;
+rm)
+    [[ $# -eq 2 ]] || die_usage
+    cmd_rm "$2"
+    ;;
+config)
+    [[ $# -ge 3 && $# -le 4 ]] || die_usage
+    cmd_config "$2" "$3" "${4:-}"
+    ;;
+*)
+    die_usage
+    ;;
+esac

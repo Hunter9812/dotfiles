@@ -1,0 +1,107 @@
+""" Some Variable ---------------------
+let mapleader=" "
+
+""" Plugins  --------------------------------
+set argtextobj
+set commentary
+set easymotion
+set functiontextobj
+set mini-ai
+set NERDTree
+set ReplaceWithRegister
+set surround
+set textobj-entire
+set which-key
+
+""" Common settings -------------------------
+set ignorecase
+set smartcase
+set showmode
+set so=0
+set incsearch
+set nu
+
+""" Idea specific settings ------------------
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+
+""" Plugin's settings -------------------------
+set notimeout " which-key
+let g:NERDTreeMapActivateNode = 'l'
+let g:NERDTreeMapNewFile = 'a'
+let g:NERDTreeMapNewDir = 'A'
+let g:NERDTreeMapOpenRecursively = 'O'
+let g:NERDTreeMapToggleZoom = '<C-m>'
+let g:NERDTreeMapDelete = 'd'
+let g:NERDTreeMapOpenVSplit = 's'
+let g:NERDTreeMapCloseDir = 'h'
+let g:NERDTreeMapCloseChildren = 'c'
+let g:NERDTreeMapQuit = 'q'
+let g:NERDTreeMapPreview = '<CR>'
+
+" handler"
+sethandler <C-\> a:ide
+sethandler <C-a> a:vim
+sethandler <C-c> a:vim
+sethandler <C-i> a:vim
+sethandler <C-o> a:vim
+sethandler <C-r> a:vim
+sethandler <C-u> a:vim
+sethandler <C-v> a:vim
+sethandler <C-w> a:vim
+sethandler <C-x> a:vim
+sethandler <C-b> a:ide
+sethandler <C-d> a:ide
+sethandler <C-f> a:ide
+sethandler <C-s> a:ide
+
+""" Mappings ---------------------
+nmap Tab     <Action>(NextTab)
+nmap <S-Tab> <Action>(PreviousTab)
+nmap gf <Action>(GotoDeclaration)
+nmap ;e <action>(ActivateProjectToolWindow)
+nmap ;g <action>(ActivateVersionControlToolWindow)
+nmap ;a <action>(ActivateStructureToolWindow)
+nmap ;f <action>(GotoFile)
+nmap ;h <action>(Replace)
+nmap ;F <action>(FindInPath)
+nmap ;H <action>(ReplaceInPath)
+nmap ;s <action>(GotoSymbol)
+nmap <leader>f <action>(ReformatCode)
+nmap <leader>u <action>(ShowUsages)
+nmap <leader>U <action>(FileStructurePopup)
+nmap <leader>h <action>(TypeHierarchy)
+nmap <leader>H <action>(MethodHierarchy)
+nmap <leader>i <action>(GotoImplementation)
+nmap <leader>I <action>(GotoSuperMethod)
+nmap <leader>R <action>(Run)
+nmap <leader>r <action>(RunClass)
+nmap <leader>dr <action>(Debug)
+nmap <leader>bd <Action>(ToggleLineBreakpoint)
+nmap <leader>cd <Action>(AddConditionalBreakpoint)
+nmap <leader>dk <Action>(GotoPreviousError)
+nmap <leader>dj <Action>(GotoNextError)
+" Mappings to <Action> don't work with noremap. You can try the form below.
+nnoremap gh :action ShowHoverInfo<CR>
+nmap <leader>jr <action>(ExternalSystem.ProjectRefreshAction)
+nmap <leader>vr <action>(IdeaVim.ReloadVimRc.reload)
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <SPACE> <Nop>
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+nnoremap j jzz
+nnoremap k kzz
+vnoremap J :m '>+1<CR>gv-gv
+vnoremap K :m '<-2<CR>gv-gv
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>Q :qa!<CR>

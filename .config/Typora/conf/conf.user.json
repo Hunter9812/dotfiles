@@ -1,0 +1,56 @@
+/** For advanced users. */
+{
+  "defaultFontFamily": {
+    "standard": "霞鹜文楷", //String - Defaults to "Times New Roman".
+    "serif": "霞鹜文楷", // String - Defaults to "Times New Roman".
+    "sansSerif": "霞鹜文楷", // String - Defaults to "Arial".
+    "monospace": "霞鹜文楷等宽" // String - Defaults to "Courier New".
+  },
+  "autoHideMenuBar": false, //Boolean - Auto hide the menu bar unless the `Alt` key is pressed. Default is false.
+
+  // Array - Search Service user can access from context menu after a range of text is selected. Each item is formatted as [caption, url]
+  "searchService": [
+    ["使用 Google 搜索",    "https://www.google.com/search?q=%s"],
+    ["使用 Bing (CN) 搜索", "https://cn.bing.com/search?q=%s"],
+    ["使用 Baidu 搜索",     "https://www.baidu.com/s?wd=%s"],
+    ["使用 GitHub 搜索",    "https://github.com/search?q=%s"]
+  ],
+
+  // Custom key binding, which will override the default ones.
+  // see https://support.typora.io/Shortcut-Keys/#windows--linux for detail
+  "keyBinding": {
+    // for example:
+    // "Always on Top": "Ctrl+Shift+P"
+    // All other options are the menu items 'text label' displayed from each typora menu
+    //* File
+    "Open Folder...": "Ctrl+Shift+O", // Ctrl+O
+    "Open Quickly...": "Ctrl+R", // Ctrl+P
+    "Open File Location": "Alt+Shift+R",
+    "Reveal in Sidebar": "Ctrl+Shift+E",
+    "Print...": "Ctrl+P", // Alt+Shift+P
+
+    //* Edit
+    "Redo": "Ctrl+Shift+Z", // Ctrl+Y
+    "Copy as Plain Text": "Alt+C",
+    "Copy as HTML Code": "Ctrl+Shift+Alt+C",
+
+    //* Paragraph
+    "Quote": "Ctrl+Q", // Ctrl+Shift+Q
+    "Footnotes": "Ctrl+Alt+F",
+    "Horizontal Line": "Ctrl+Shift+H",
+
+    //* Format
+    "Code": "Ctrl+Shift+`",
+    "Highlight": "Ctrl+H", // Ctrl+Shift+H
+    "Comment": "Ctrl+/",
+    "Insert Local Images...": "Ctrl+Alt+I",
+
+    //* View
+    "Source Code Mode": "Ctrl+Shift+/", // Ctrl+/
+    "Toggle DevTools": "F12" // Shift+F12
+  },
+
+  "monocolorEmoji": false, //default false. Only work for Windows
+  "maxFetchCountOnFileList": 500,
+  "flags": [] // default [], append Chrome launch flags, e.g: [["disable-gpu"], ["host-rules", "MAP * 127.0.0.1"]]
+}

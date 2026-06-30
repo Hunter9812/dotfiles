@@ -1,0 +1,22 @@
+show=drun
+width=65%
+lines=8
+always_parse_args=true
+show_all=false
+insensitive=true
+allow_images=true
+normal_window=true
+prompt=launcher mode
+
+# adding vim keybindings
+key_up=Up,Ctrl-k
+key_down=Down,Ctrl-j
+key_left=Left,Ctrl-h
+key_right=Right,Ctrl-l
+key_forward=Tab,Ctrl-n
+key_backward=Shift-ISO_Left_Tab,Ctrl-p
+key_submit=Return,KP_Enter,Ctrl-m
+key_pgup=Page_Up,Ctrl-u
+key_pgdn=Page_Down,Ctrl-d
+key_expand=Ctrl-l
+key_copy=Ctrl-c,Ctrl-y

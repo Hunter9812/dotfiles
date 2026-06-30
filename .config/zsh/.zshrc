@@ -1,0 +1,197 @@
+bindkey -e
+unsetopt BEEP
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+setopt prompt_subst
+setopt menucomplete
+setopt CORRECT
+
+export HISTFILE="$ZDOTDIR/.zsh_history"
+export HISTSIZE=10000
+export SAVEHIST=10000
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS   # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS      # Do not display a line previously found.
+setopt HIST_SAVE_NO_DUPS      # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS     # Remove superfluous blanks before recording entry.
+setopt HIST_IGNORE_SPACE
+
+#= Variable
+fileManager="nautilus" # or use dolphin
+export LANG="en_US.UTF-8"
+export LESS="-R"
+export FZF_DEFAULT_OPTS="
+    --layout=reverse
+    --border
+    --info=inline
+    --pointer='▶'
+    --marker='✓'
+    --color='fg+:white,hl:yellow,hl+:yellow,prompt:blue,header:magenta'
+"
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+"
+
+#= Alias & Function
+
+#== Abbr
+alias ni='touch'
+alias se='sudoedit'
+alias s='fastfetch'
+alias o='$fileManager . >/dev/null 2>&1 &'
+alias g='lazygit'
+alias c='code .'
+alias oc='opencode'
+alias cmd='command'
+
+#== Enhance
+_has() { command -v "$1" >/dev/null 2>&1 }
+if _has zoxide; then
+  alias cd='z'
+fi
+if _has eza; then
+  alias ls='eza --icons --group-directories-first --time-style "+%Y-%m-%d %H:%M:%S"'
+  alias ll='ls --long --header --git'
+  alias tree='ls --tree --level=3'
+else
+  alias ls='ls --color=auto --classify --group-directories-first'
+  alias ll='ls -l --human-readable'
+fi
+if _has bat; then
+  alias bat='bat --paging=always'
+  alias less='bat'
+  alias view='bat'
+  alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+else
+  export LESS='-R'
+  alias view='less'
+  alias ff="fzf --preview 'less {}'"
+fi
+if _has rg; then
+  alias rg='rg --smart-case'
+  alias grep='rg'
+else
+  alias grep='grep --color=auto'
+fi
+alias rm='rm -i'
+alias mkdir='mkdir -p -v'
+alias ping='ping -c 5'
+alias df='df -h'
+alias du='du -c -h'
+alias cpr='rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1'
+alias mvr='rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --remove-source-files'
+tldr() { [[ "$1" == "-u" ]] && { proxy; command tldr "$@"; unproxy; } || command tldr "$@"; }
+
+#== Utils
+open() { $fileManager "$@" >/dev/null 2>&1 & }
+dos2lf() { sed -i 's/\r$//' "$@" }
+alias reload='exec zsh'
+alias cman='LANG=zh_CN.UTF-8 man'
+alias ipa='ip addr show | grep "inet "'
+alias fps='ps aux | fzf'
+alias battery='upower -i $(upower -e | grep battery) | view'
+alias docker_ip_fetcher='docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
+compdef config=git
+
+#=== Functions
+proxy() {
+  export http_proxy=http://127.0.0.1:11451
+  export https_proxy=http://127.0.0.1:11451
+  export all_proxy=http://127.0.0.1:11451
+  echo "Terminal proxy enabled."
+}
+unproxy() {
+  unset http_proxy https_proxy all_proxy
+  echo "Terminal proxy disabled."
+}
+cdw() {
+  if (( $# == 0 )); then
+    echo "Usage: $0 <command>"
+    return 1
+  fi
+
+  local cmd_path="${1:c}"
+  [[ -z "$cmd_path" ]] && cmd_path=$(whence -p "$1")
+
+  if [[ -z "$cmd_path" ]]; then
+    echo "Command not found: $1"
+    return 1
+  fi
+
+  local cmd_dir="${cmd_path:h}"
+
+  echo "Changing to directory: $cmd_dir"
+  cd "$cmd_dir" || echo "Failed to change directory"
+}
+compdef _command_names cdw
+printfiles() {
+  local lines=${1:-10}
+  if ! [[ "$lines" =~ ^[0-9]+$ ]]; then
+    echo "Error: lines must be a positive integer."
+    return 1
+  fi
+
+  for f in *; do
+    [ -f "$f" ] || continue
+
+    if file "$f" | grep -q text; then
+      echo "==== $f ===="
+      head -n "$lines" "$f"
+      echo
+    fi
+  done
+}
+
+#=== Distro
+alias upmirror='sudo reflector --country China --protocol https --latest 20 --sort rate --save /etc/pacman.d/mirrorlist'
+alias pkgadd="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
+alias pkgrm="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
+alias pkgclr='sudo pacman -Rns $(pacman -Qdtq)'
+
+#= Officially recommended
+alias lzd='lazydocker'
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
+
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
+# fzf's [key bindings](https://github.com/junegunn/fzf#key-bindings-for-command-line)
+# CTRL-R  : search command history (fzf reverse history search)
+# CTRL-T  : search files and directories (insert selected path into command line)
+# ALT-C   : search directories and cd into selected directory
+source <(fzf --zsh)
+
+#== Check and load something
+export NVM_DIR="$HOME/.nvm"
+ZSH_PLUGIN_DIR="/usr/share/zsh/plugins"
+
+# zsh-vi-mode overwrites keybindings of other zsh plugins, [link](https://github.com/jeffreytse/zsh-vi-mode/issues/127#issuecomment-930104572)
+# The plugin will auto execute this zvm_after_init function
+function zvm_after_init() {
+  zvm_bindkey viins '^R' fzf-history-widget
+  zvm_bindkey vicmd '/'  fzf-history-widget
+}
+
+plugins=(
+  "$NVM_DIR/nvm.sh"
+  "$NVM_DIR/bash_completion"
+  "/opt/miniforge/etc/profile.d/conda.sh"
+  "$ZSH_PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  "$ZSH_PLUGIN_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  "$ZSH_PLUGIN_DIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+)
+
+for p in $plugins; do
+  if [[ -f "$p" ]]; then
+    source "$p"
+  fi
+done

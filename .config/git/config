@@ -1,0 +1,83 @@
+[include]
+    path = config.local
+
+[color]
+    ui = auto
+
+[alias]
+    st = status -sb
+    co = checkout
+    sw = switch
+    br = branch
+    c = commit --short
+    ci = commit --short
+    cm = commit -m
+    p = push
+    pf = push --force-with-lease
+    l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
+    ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+    uncommit = reset --soft HEAD^
+    unstage = reset HEAD --
+    amend = commit --amend --no-edit
+    fixup = commit --fixup
+
+[core]
+	pager = delta
+    editor = nvim
+    autocrlf = input
+    # Treat whitespace issues as errors
+    whitespace = trailing-space,space-before-tab
+
+[interactive]
+	diffFilter = delta --color-only
+
+[include]
+    path = ~/.local/share/nvim/lazy/tokyonight.nvim/extras/delta/tokyonight_moon.gitconfig
+
+[delta]
+	navigate = true
+	light = false
+	side-by-side = false
+	line-numbers = true
+	features = decorations
+
+[delta "decorations"]
+	commit-decoration-style = bold yellow box ul
+	file-style = bold yellow ul
+	file-decoration-style = none
+
+[merge]
+    conflictstyle = zdiff3
+    tool = nvimdiff
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+    tool = nvim_difftool
+    # Better submodule diffs
+    submodule = log
+
+[difftool "nvim_difftool"]
+	cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
+
+[difftool]
+    prompt = false
+
+[mergetool]
+    prompt = false
+    # keepBackup = false
+
+[init]
+    defaultBranch = main
+
+[commit]
+    verbose = true
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+
+[help]
+    autocorrect = prompt
+
+[log]
+    date = auto:human

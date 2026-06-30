@@ -1,0 +1,14 @@
+{
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "diagnostics.disable": [
+    "undefined-doc-name"
+  ],
+  "workspace": {
+    "library": [
+      "/usr/share/nvim/runtime/lua"
+    ],
+    "checkThirdParty": "Disable"
+  }
+}
