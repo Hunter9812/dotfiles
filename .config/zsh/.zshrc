@@ -48,6 +48,7 @@ alias cmd='command'
 
 #== Enhance
 _has() { command -v "$1" >/dev/null 2>&1 }
+# zoxide, eza, bat, ripgrep
 if _has zoxide; then
   alias cd='z'
 fi
@@ -60,15 +61,23 @@ else
   alias ll='ls -l --human-readable'
 fi
 if _has bat; then
-  alias bat='bat --paging=always'
-  alias less='bat'
-  alias view='bat'
-  alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+  # See https://github.com/sharkdp/bat
+  alias cat='bat --paging=never --style=plain'
+  alias less='bat --paging=always'
+  # https://github.com/sharkdp/bat#fzf
+  alias ff="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+  # https://github.com/sharkdp/bat#man
+  export MANPAGER="bat -plman"
+  # https://github.com/sharkdp/bat#highlighting---help-messages
+  bathelp() { bat --plain --language=help }
+  help() { "$@" --help 2>&1 | bathelp }
+  alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+  alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 else
   export LESS='-R'
-  alias view='less'
   alias ff="fzf --preview 'less {}'"
 fi
+alias view='less'
 if _has rg; then
   alias rg='rg --smart-case'
   alias grep='rg'
