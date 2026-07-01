@@ -264,10 +264,12 @@ hl.config({
     sensitivity        = 0, -- -1.0 - 1.0, 0 means no modification.
 
     follow_mouse       = 1,
+    focus_on_close     = 2,
 
     touchpad           = {
-      scroll_factor = 0.6,
       natural_scroll = true,
+      scroll_factor  = 0.6,
+      drag_lock      = 2,
     },
   },
   cursor = {
@@ -290,7 +292,6 @@ hl.device({
   name        = "epic-mouse-v1",
   sensitivity = -0.5,
 })
-
 
 ---------------------
 ---- KEYBINDINGS ----
