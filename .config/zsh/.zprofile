@@ -15,9 +15,6 @@ path=(
 export PATH
 
 #== App
-GTK_IM_MODULE=fcitx
-QT_IM_MODULE=fcitx
-XMODIFIERS=@im=fcitx
 
 #== Mirrors
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
