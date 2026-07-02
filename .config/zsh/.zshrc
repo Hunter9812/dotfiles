@@ -17,9 +17,8 @@ setopt HIST_REDUCE_BLANKS     # Remove superfluous blanks before recording entry
 setopt HIST_IGNORE_SPACE
 
 #= Variable
-fileManager="nautilus" # or use dolphin
-export LANG="en_US.UTF-8"
-export LESS="-R"
+fileManager='nautilus' # or use dolphin
+export LANG='en_US.UTF-8'
 export FZF_DEFAULT_OPTS="
     --layout=reverse
     --border
@@ -53,7 +52,7 @@ if _has zoxide; then
   alias cd='z'
 fi
 if _has eza; then
-  alias ls='eza --icons --group-directories-first --time-style "+%Y-%m-%d %H:%M:%S"'
+  alias ls="eza --icons --group-directories-first --time-style '+%Y-%m-%d %H:%M:%S'"
   alias ll='ls --long --header --git'
   alias tree='ls --tree --level=3'
 else
@@ -63,21 +62,22 @@ fi
 if _has bat; then
   # See https://github.com/sharkdp/bat
   alias cat='bat --paging=never --style=plain'
-  alias less='bat --paging=always'
   # https://github.com/sharkdp/bat#fzf
   alias ff="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
   # https://github.com/sharkdp/bat#man
-  export MANPAGER="bat -plman"
+  export MANPAGER='bat -plman'
   # https://github.com/sharkdp/bat#highlighting---help-messages
   bathelp() { bat --plain --language=help }
   help() { "$@" --help 2>&1 | bathelp }
   alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
   alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+  export BAT_PAGER='builtin'
+  alias view='bat'
 else
-  export LESS='-R'
   alias ff="fzf --preview 'less {}'"
+  alias view='less'
 fi
-alias view='less'
+export LESS='--RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen'
 if _has rg; then
   alias rg='rg --smart-case'
   alias grep='rg'
@@ -94,11 +94,9 @@ alias mvr='rsync --archive -hh --partial --info=stats1,progress2 --modify-window
 tldr() { [[ "$1" == "-u" ]] && { proxy; command tldr "$@"; unproxy; } || command tldr "$@"; }
 
 #== Utils
-open() { $fileManager "$@" >/dev/null 2>&1 & }
-dos2lf() { sed -i 's/\r$//' "$@" }
 alias reload='exec zsh'
 alias cman='LANG=zh_CN.UTF-8 man'
-alias ipa='ip addr show | grep "inet "'
+alias ipa="ip addr show | grep 'inet '"
 alias fps='ps aux | fzf'
 alias battery='upower -i $(upower -e | grep battery) | view'
 alias docker_ip_fetcher='docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
@@ -106,15 +104,22 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 compdef config=git
 
 #=== Functions
+open() { $fileManager "$@" >/dev/null 2>&1 & }
+dos2lf() { sed -i 's/\r$//' "$@" }
+runbg() { nohup "$@" >/dev/null 2>&1 </dev/null & disown }
+edit() {
+    mkdir -p "$(dirname "$1")"
+    $EDITOR "$1"
+}
 proxy() {
   export http_proxy=http://127.0.0.1:11451
   export https_proxy=http://127.0.0.1:11451
   export all_proxy=http://127.0.0.1:11451
-  echo "Terminal proxy enabled."
+  echo 'Terminal proxy enabled.'
 }
 unproxy() {
   unset http_proxy https_proxy all_proxy
-  echo "Terminal proxy disabled."
+  echo 'Terminal proxy disabled.'
 }
 cdw() {
   if (( $# == 0 )); then
@@ -133,13 +138,13 @@ cdw() {
   local cmd_dir="${cmd_path:h}"
 
   echo "Changing to directory: $cmd_dir"
-  cd "$cmd_dir" || echo "Failed to change directory"
+  cd "$cmd_dir" || echo 'Failed to change directory'
 }
 compdef _command_names cdw
 printfiles() {
   local lines=${1:-10}
   if ! [[ "$lines" =~ ^[0-9]+$ ]]; then
-    echo "Error: lines must be a positive integer."
+    echo 'Error: lines must be a positive integer.'
     return 1
   fi
 
@@ -181,7 +186,7 @@ source <(fzf --zsh)
 
 #== Check and load something
 export NVM_DIR="$HOME/.nvm"
-ZSH_PLUGIN_DIR="/usr/share/zsh/plugins"
+ZSH_PLUGIN_DIR='/usr/share/zsh/plugins'
 
 # zsh-vi-mode overwrites keybindings of other zsh plugins, [link](https://github.com/jeffreytse/zsh-vi-mode/issues/127#issuecomment-930104572)
 # The plugin will auto execute this zvm_after_init function
@@ -193,7 +198,7 @@ function zvm_after_init() {
 plugins=(
   "$NVM_DIR/nvm.sh"
   "$NVM_DIR/bash_completion"
-  "/opt/miniforge/etc/profile.d/conda.sh"
+  '/opt/miniforge/etc/profile.d/conda.sh'
   "$ZSH_PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
   "$ZSH_PLUGIN_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
   "$ZSH_PLUGIN_DIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh"

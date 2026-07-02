@@ -632,6 +632,7 @@ hl.window_rule({
 hl.workspace_rule({ workspace = "1", default_name = "browse" })
 hl.workspace_rule({ workspace = "2", default_name = "code", layout_opts = { direction = "down" } })
 hl.workspace_rule({ workspace = "3", default_name = "play" })
+hl.workspace_rule({ workspace = "9", default_name = "ai", layout_opts = { direction = "down" } })
 hl.workspace_rule({ workspace = "10", default_name = "desktop" })
 hl.workspace_rule({ workspace = "special:scratchpad", layout_opts = { direction = "down" } })
 
