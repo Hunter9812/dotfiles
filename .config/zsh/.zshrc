@@ -103,7 +103,6 @@ alias docker_ip_fetcher='docker inspect --format="{{range .NetworkSettings.Netwo
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 compdef config=git
 
-#=== Functions
 open() { $fileManager "$@" >/dev/null 2>&1 & }
 dos2lf() { sed -i 's/\r$//' "$@" }
 runbg() { nohup "$@" >/dev/null 2>&1 </dev/null & disown }
@@ -158,8 +157,25 @@ printfiles() {
     fi
   done
 }
+#=== Neovim
+vidiff() {
+  if [ $# -lt 2 ]; then
+    echo "Usage: ndiff file1 file2 [l|h]"
+    return 1
+  fi
 
-#=== Distro
+  local f1="$1"
+  local f2="$2"
+  local focus="${3:-l}"
+
+  if [ "$focus" = "h" ]; then
+    nvim -d "$f1" "$f2" -c "wincmd h"
+  else
+    nvim -d "$f1" "$f2" -c "wincmd l"
+  fi
+}
+
+#= Distro
 alias upmirror='sudo reflector --country China --protocol https --latest 20 --sort rate --save /etc/pacman.d/mirrorlist'
 alias pkgadd="pacman -Slq | fzf --multi --preview 'pacman -Si {1}' | xargs -ro sudo pacman -S"
 alias pkgrm="pacman -Qq | fzf --multi --preview 'pacman -Qi {1}' | xargs -ro sudo pacman -Rns"
@@ -188,13 +204,6 @@ source <(fzf --zsh)
 export NVM_DIR="$HOME/.nvm"
 ZSH_PLUGIN_DIR='/usr/share/zsh/plugins'
 
-# zsh-vi-mode overwrites keybindings of other zsh plugins, [link](https://github.com/jeffreytse/zsh-vi-mode/issues/127#issuecomment-930104572)
-# The plugin will auto execute this zvm_after_init function
-function zvm_after_init() {
-  zvm_bindkey viins '^R' fzf-history-widget
-  zvm_bindkey vicmd '/'  fzf-history-widget
-}
-
 plugins=(
   "$NVM_DIR/nvm.sh"
   "$NVM_DIR/bash_completion"
@@ -209,3 +218,15 @@ for p in $plugins; do
     source "$p"
   fi
 done
+
+if (( ${+functions[_zsh_autosuggest_start]} )); then
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=245' # dark terminal
+  # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=237' # light terminal
+fi
+
+# zsh-vi-mode overwrites keybindings of other zsh plugins, [link](https://github.com/jeffreytse/zsh-vi-mode/issues/127#issuecomment-930104572)
+# The plugin will auto execute this zvm_after_init function
+function zvm_after_init() {
+  zvm_bindkey viins '^R' fzf-history-widget
+  zvm_bindkey vicmd '/'  fzf-history-widget
+}
