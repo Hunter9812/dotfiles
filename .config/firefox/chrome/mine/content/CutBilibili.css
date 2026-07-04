@@ -1,0 +1,37 @@
+@-moz-document domain("bilibili.com") {
+    .adblock-tips,
+    ul.left-entry > li:nth-child(5), /* 会员购 */
+    ul.left-entry > li:nth-child(7), /* 赛事 */
+    ul.left-entry li.v-popover-wrap.left-loc-entry, /* 周年庆 */
+    ul.right-entry .vip-wrap, /* 大会员 */
+    #xxx {
+        display: none !important;
+        height: 0 !important;
+    }
+
+    .right-container-inner,
+    .playlist-container--right,
+    #xxx {
+        width: 31vw !important;
+    }
+}
+
+@-moz-document domain("t.bilibili.com") {
+    .bili-dyn-home--member > .left {
+        display: none !important;
+        height: 0 !important;
+    }
+
+    .bili-dyn-home--member > main:nth-child(2) {
+        width: 60vw !important;
+    }
+
+    .bili-dyn-card-video__title {
+        -webkit-line-clamp: 1 !important;
+    }
+    /* 显示两行简介 */
+    .bili-dyn-card-video__desc {
+        -webkit-line-clamp: 2 !important;
+        height: 2.1rem !important;
+    }
+}

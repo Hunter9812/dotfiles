@@ -1,0 +1,13 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --filter-brightness-image: 75%
+  }
+
+  img,
+  canvas,
+  .ztext-gif
+  {
+    -webkit-filter: brightness(var(--filter-brightness-image));
+    filter: brightness(var(--filter-brightness-image));
+  }
+}

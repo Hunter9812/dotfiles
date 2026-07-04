@@ -1,0 +1,62 @@
+:root {
+  --zhihu-view-width:65vw;
+}
+
+@-moz-document domain("zhuanlan.zhihu.com"){
+  .AuthorCard {
+    display: none
+  }
+  .Post-Row-Content-left {
+    width: 85vw !important;
+  }
+}
+
+@-moz-document domain("www.zhihu.com"), domain("zhihu.com") {
+  .Post-Main > * {
+     width: var(--zhihu-view-width) !important;
+  }
+  .Post-Sub > * {
+     width: var(--zhihu-view-width) !important;
+  }
+
+  .Topstory-container {
+    justify-content: center;
+  }
+
+  .Topstory-mainColumn,
+  .Question-mainColumn {
+    width: 65vw;
+  }
+
+  .CreatorEntrance,
+  .css-173vipd,
+  li.Tabs-item:nth-child(2),
+  li.Tabs-item:nth-child(4),
+  .Question-sideColumn{
+    display: none !important;
+  }
+
+  .Sticky.AppHeader.is-fixed {
+    top: -45px !important;
+    -moz-transition: top 200ms ease-out 500ms;
+    -webkit-transition: top 200ms ease-out 500ms;
+    transition: top 200ms ease-out 500ms;
+  }
+
+  .Sticky.AppHeader:hover {
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.8);
+    top: 0 !important;
+    -moz-transition-delay: 0s;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+  }
+
+  @supports ((-webkit-backdrop-filter:blur(20px)) or (backdrop-filter:blur(20px))) {
+    .Sticky.AppHeader:hover {
+      -webkit-filter: none;
+      filter: none
+    }
+  }
+}

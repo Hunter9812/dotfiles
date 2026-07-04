@@ -1,0 +1,14 @@
+/* 关于firefox界面的logo */
+@-moz-document url("chrome://browser/content/aboutDialog.xhtml")
+{
+  /* change logo png, svg, even gif anims */
+  #leftBox {
+    /** download the firefox-doge logo, and replace it with the following line.
+     *  https://free.picui.cn/free/2026/06/29/6a414a9719f76.png
+     */
+    background-image: url('./firefox-doge.png') !important;
+    background-position: left !important;
+    background-repeat: no-repeat !important;
+    font-family: Roboto, "LXGW WenKai", sans-serif !important;
+ }
+}

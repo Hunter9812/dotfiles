@@ -1,0 +1,9 @@
+/* 禁用右键菜单项中的 用邮件发送图像/音频/视频和设置为桌面背景  */
+#context-sendimage,
+#context-sendvideo,
+#context-sendaudio,
+#context-sep-setbackground,
+#context-setDesktopBackground,
+#xxx {
+  display: none !important;
+}
