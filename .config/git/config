@@ -1,6 +1,8 @@
-[include]
-    path = config.local
+[user]
+    name = Hunter Wang
+    email = hunter9812@qq.com
 
+# Most of my Git config is derived from [Folke's dotfiles](https://github.com/folke/dot).
 [color]
     ui = auto
 
@@ -22,29 +24,29 @@
     fixup = commit --fixup
 
 [core]
-	pager = delta
+    pager = delta
     editor = nvim
     autocrlf = input
     # Treat whitespace issues as errors
     whitespace = trailing-space,space-before-tab
 
 [interactive]
-	diffFilter = delta --color-only
+    diffFilter = delta --color-only
 
 [include]
     path = ~/.local/share/nvim/lazy/tokyonight.nvim/extras/delta/tokyonight_moon.gitconfig
 
 [delta]
-	navigate = true
-	light = false
-	side-by-side = false
-	line-numbers = true
-	features = decorations
+    navigate = true
+    light = false
+    side-by-side = false
+    line-numbers = true
+    features = decorations
 
 [delta "decorations"]
-	commit-decoration-style = bold yellow box ul
-	file-style = bold yellow ul
-	file-decoration-style = none
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
 
 [merge]
     conflictstyle = zdiff3
@@ -58,7 +60,7 @@
     submodule = log
 
 [difftool "nvim_difftool"]
-	cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
+    cmd = nvim -c \"packadd nvim.difftool\" -c \"DiffTool $LOCAL $REMOTE\"
 
 [difftool]
     prompt = false
@@ -67,6 +69,22 @@
     prompt = false
     # keepBackup = false
 
+[pull]
+    rebase = true
+
+[push]
+    default = current
+    autoSetupRemote = true
+
+[fetch]
+    prune = true
+    pruneTag = true
+
+[rebase]
+    autoStash = true
+    autoSquash = true
+    updateRefs = true
+
 [init]
     defaultBranch = main
 
@@ -74,10 +92,16 @@
     verbose = true
 
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+    insteadOf = https://github.com/
 
 [help]
     autocorrect = prompt
 
 [log]
     date = auto:human
+
+[https]
+    proxy = http://127.0.0.1:11451
+
+[http]
+    proxy = http://127.0.0.1:11451
