@@ -22,7 +22,7 @@
 
    - 通法：
 
-      - 打开 firefox，输入 `about:support`
+      - 打开 Firefox，输入 `about:support`
 
       - 找到 配置文件文件夹，点击 打开目录
 
@@ -34,6 +34,12 @@
 
       - Windows: `%APPDATA%\Mozilla\Firefox\Profiles`
 
-4. 重启 firefox
+4. 重启 Firefox
 
    关闭后打开即可，也可输入 `about:restartrequired` 点击按钮重启
+
+5. 禁用 Firefox 更新
+
+   Linux 有包管理器进行管理，而 Windows 可以尝试将 `distribution` 放到安装目录去
+
+   默认安装位置是 `C:\Program Files\Mozilla Firefox`
