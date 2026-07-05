@@ -7,19 +7,10 @@ if wezterm.config_builder then
   c = wezterm.config_builder()
 end
 
-local bgcolor = require('theme.bgcolor')
 local home = os.getenv("HOME") or os.getenv("USERPROFILE")
-local function getOS()
-  if jit then
-    return jit.os
-  end
-  -- Unix, Linux variants
-  local fh, err = assert(io.popen("uname -o 2>/dev/null", "r"))
-  if fh then
-    Osname = fh:read()
-  end
-  return Osname or "Windows"
-end
+local platform = dofile(home .. "/.config/lua/platform.lua")
+local bgcolor = require('theme.bgcolor')
+
 local function split_or_toggle_zoom(direction, size)
   return wezterm.action_callback(function(_, pane)
     local tab = pane:tab()
@@ -41,28 +32,19 @@ local function split_or_toggle_zoom(direction, size)
   end)
 end
 
-if getOS() == "Windows" then
+if platform.is_windows() then
   c.default_prog          = { 'pwsh', '-NoLogo' }
   c.launch_menu           = {
-    { label = 'pwsh', args = { 'C:/Program Files/PowerShell/7/pwsh.exe', '-NoLogo' }, },
-    { label = 'bash', args = { home .. '/scoop/shims/bash.exe' }, },
+    { label = 'bash', args = { home .. '/scoop/apps/git/current/bin/bash.exe' }, },
     { label = 'cmd',  args = { 'cmd' }, },
   }
-  c.wsl_domains           = {
-    {
-      name = 'WSL:Arch',
-      distribution = 'Arch',
-      username = 'hunter',
-      default_prog = { "zsh" }
-    }
-  }
-  c.window_decorations = "TITLE | RESIZE"
+  c.mux_enable_ssh_agent=false
+  c.window_decorations = "RESIZE"
   wezterm.on('gui-startup', function(cmd)
     -- if you want to center a new window on the screen, check this [link](https://github.com/wezterm/wezterm/discussions/5501#discussioncomment-9636644)
     local tab, pane, window = mux.spawn_window(cmd or {})
     window:gui_window():maximize()
   end)
-elseif getOS() == "Linux" or getOS() == "GNU/Linux" then
 end
 
 --= Options
