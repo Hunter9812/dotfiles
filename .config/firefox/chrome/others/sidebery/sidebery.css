@@ -1,6 +1,6 @@
 /* Add the following to the Styles editor in your Sidebery settings */
 #root.root {
-  --tabs-font: 0.9375rem Roboto, "WenKai", sans-serif !important;
+  --tabs-font: 0.9375rem "LXGW WenKai", sans-serif !important;
   --gg-black: #1c1b22;
   --gg-grey: #2b2a33;
   --gg-white: #fefefe;

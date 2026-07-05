@@ -1,8 +1,11 @@
 /* 导航栏, 书签工具栏 */
 #nav-bar, #PersonalToolbar {
-  font-family: Roboto, "LXGW WenKai", sans-serif !important;
+  font-family: "LXGW WenKai", sans-serif !important;
+}
+#nav-bar {
+  font-size: 0.9rem !important;
 }
 /* 网址栏的输入框 */
 .urlbar-input-box {
-  font-style: italic;
+  font-style: italic !important;
 }
