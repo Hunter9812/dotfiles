@@ -1,4 +1,5 @@
 $OutputEncoding = [System.Console]::OutputEncoding = [System.Console]::InputEncoding = [System.Text.Encoding]::UTF8
+Set-PSReadlineOption        -BellStyle None
 Set-PSReadLineOption        -EditMode Emacs
 Set-PSReadLineOption        -PredictionSource History
 Set-PSReadlineKeyHandler    -Key Tab        -Function Complete
@@ -39,7 +40,7 @@ function l { eza --color=auto --icons=auto --group-directories-first --all --git
 
 #== Utils
 function reload { pwsh -NoLogo; exit }
-function config { git --git-dir="$HOME/.cfg" --work-tree="$HOME" @Args }
+function conf { git --git-dir="$HOME/.cfg" --work-tree="$HOME" @Args }
 function env { rundll32.exe sysdm.cpl,EditEnvironmentVariables }
 function proxy {
 	$env:HTTP_PROXY="http://127.0.0.1:11451"; $env:HTTPS_PROXY="http://127.0.0.1:11451";

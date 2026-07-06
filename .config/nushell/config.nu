@@ -111,7 +111,8 @@ alias oc  = ^opencode
 
 #== Utils
 alias reload = exec nu
-alias conf = git --git-dir ($env.HOME | path join ".cfg") --work-tree $env.HOME
+alias conf  = git --git-dir ($env.HOME | path join ".cfg") --work-tree $env.HOME
+alias confg = lazygit -g ($env.HOME | path join ".cfg") -w $env.HOME
 alias docker_ip_fetcher = docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"
 def --env proxy [] {
 	$env.http_proxy  = 'http://127.0.0.1:11451'

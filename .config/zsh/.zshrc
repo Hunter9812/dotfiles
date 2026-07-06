@@ -100,8 +100,10 @@ alias ipa="ip addr show | grep 'inet '"
 alias fps='ps aux | fzf'
 alias battery='upower -i $(upower -e | grep battery) | view'
 alias docker_ip_fetcher='docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
-alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
-compdef config=git
+alias conf='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
+compdef conf=git
+# See https://github.com/jesseduffield/lazygit/issues/5469#issuecomment-4213154549
+alias confg='lazygit -g $HOME/.cfg -w $HOME'
 
 open() { $fileManager "$@" >/dev/null 2>&1 & }
 dos2lf() { sed -i 's/\r$//' "$@" }

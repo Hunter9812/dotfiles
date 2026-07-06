@@ -31,13 +31,13 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-	{ run = "${EDITOR:-vi} %s",   desc = "Open in Terminal Editor",   for = "unix",    block = true  },
-    { run = 'sudoedit %s',        desc = "Edit as Administrator",     for = "unix",    block = true  },
-    { run = 'code %s',            desc = "Open with VSCode",          for = "unix",    orphan = true },
-    { run = 'idea %s',            desc = "Open with IDEA",            for = "unix",    orphan = true },
-    { run = '%EDITOR% %s',        desc = "Open in Terminal Editor",   for = "windows", block = true  },
+	{ run = "${EDITOR:-vi} %s",   desc = "Open in $Editor",   			  for = "unix",    block  = true },
+	{ run = 'sudoedit %s',        desc = "Edit as Administrator",     for = "unix",    block  = true },
+	{ run = 'code %s',            desc = "Open with VSCode",          for = "unix",    orphan = true },
+	{ run = 'idea %s',            desc = "Open with IDEA",            for = "unix",    orphan = true },
+	{ run = '%EDITOR% %s',        desc = "Open in $Editor",           for = "windows", block  = true },
 	{ run = "code %s",            desc = "Open with VSCode",          for = "windows", orphan = true },
-    { run = 'idea %s',            desc = "Open with IDEA",            for = "windows", orphan = true },
+	{ run = 'idea %s',            desc = "Open with IDEA",            for = "windows", orphan = true },
 ]
 play = [
 	{ run = "xdg-open %s1",    desc = "Play", for = "linux", orphan = true },
