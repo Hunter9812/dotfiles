@@ -6,23 +6,23 @@
 [mgr]
 
 prepend_keymap = [
-    { on = ["g","s"],   run = "cd ~/.local/share",    desc = "Go ~/.local/share" },
+	{ on = ["g","s"],   run = "cd ~/.local/share",    desc = "Go ~/.local/share" },
 	{ on = ["g","S"],   run = "cd ~/AppData/Local",   desc = "Go %LOCALAPPDATA%", for = "windows" },
 	{ on = ["g","C"],   run = "cd ~/AppData/Roaming", desc = "Go %APPDATA%",      for = "windows" },
 
-    { on = "S",         run = "shell --confirm --block '$SHELL'",       desc = "Open a shell here",     for = "unix" },
-    { on = "S",         run = "shell --block --confirm 'pwsh -NoLogo'", desc = "Open pwsh here", for = "windows" },
-    { on = "<C-g>",     run = "shell --confirm --block lazygit",        desc = "Lazygit", },
-    { on = "<C-k>",     run = "shell --confirm --block lazydocker",     desc = "Lazydocker" },
+	{ on = "S",         run = "shell --confirm --block '$SHELL'",       desc = "Open a shell here", for = "unix" },
+	{ on = "S",         run = "shell --confirm --block nu",             desc = "Open nushell here",   for = "windows" },
+	{ on = "<C-g>",     run = "shell --confirm --block lazygit",        desc = "Lazygit" },
+	{ on = "<C-k>",     run = "shell --confirm --block lazydocker",     desc = "Lazydocker" },
 
-    { on = "i",         run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
-    { on = "<Enter>",   run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
-    { on = ["g","t"],   run = "plugin recycle-bin -- open",         desc = "Go trash",              for = "unix" },
-    { on = ["R","o"],   run = "plugin recycle-bin -- open",         desc = "Open Trash",            for = "unix" },
-    { on = ["R","e"],   run = "plugin recycle-bin -- empty",        desc = "Empty Trash",           for = "unix" },
-    { on = ["R","D"],   run = "plugin recycle-bin -- emptyDays",    desc = "Empty by days deleted", for = "unix" },
-    { on = ["R","d"],   run = "plugin recycle-bin -- delete",       desc = "Delete from Trash",     for = "unix" },
-    { on = ["R","r"],   run = "plugin recycle-bin -- restore",      desc = "Restore from Trash",    for = "unix" },
+	{ on = "i",         run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+	{ on = "<Enter>",   run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+	{ on = ["g","t"],   run = "plugin recycle-bin -- open",         desc = "Go trash",              for = "unix" },
+	{ on = ["R","o"],   run = "plugin recycle-bin -- open",         desc = "Open Trash",            for = "unix" },
+	{ on = ["R","e"],   run = "plugin recycle-bin -- empty",        desc = "Empty Trash",           for = "unix" },
+	{ on = ["R","D"],   run = "plugin recycle-bin -- emptyDays",    desc = "Empty by days deleted", for = "unix" },
+	{ on = ["R","d"],   run = "plugin recycle-bin -- delete",       desc = "Delete from Trash",     for = "unix" },
+	{ on = ["R","r"],   run = "plugin recycle-bin -- restore",      desc = "Restore from Trash",    for = "unix" },
 ]
 
 keymap = [

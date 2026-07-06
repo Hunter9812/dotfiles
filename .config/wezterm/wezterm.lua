@@ -33,10 +33,11 @@ local function split_or_toggle_zoom(direction, size)
 end
 
 if platform.is_windows() then
-  c.default_prog          = { 'pwsh', '-NoLogo' }
+  c.default_prog          = { 'nu' }
   c.launch_menu           = {
-    { label = 'bash', args = { home .. '/scoop/apps/git/current/bin/bash.exe' }, },
     { label = 'cmd',  args = { 'cmd' }, },
+    { label = 'pwsh',  args = { 'pwsh', '-NoLogo' }, },
+    { label = 'bash', args = { home .. '/scoop/apps/git/current/bin/bash.exe' }, },
   }
   c.mux_enable_ssh_agent=false
   c.window_decorations = "RESIZE"
