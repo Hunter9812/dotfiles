@@ -186,7 +186,7 @@
                 {
                     "deviceNativePath": "__default__",
                     "displayMode": "icon-hover",
-                    "hideIfIdle": true,
+                    "hideIfIdle": false,
                     "hideIfNotDetected": true,
                     "id": "Battery",
                     "showNoctaliaPerformance": true,
@@ -571,7 +571,7 @@
     },
     "plugins": {
         "autoUpdate": false,
-        "notifyUpdates": true
+        "notifyUpdates": false
     },
     "sessionMenu": {
         "countdownDuration": 10000,
@@ -696,7 +696,8 @@
         "directory": "~/Pictures/config/wallpapers/pc",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
-        "favorites": [],
+        "favorites": [
+        ],
         "fillColor": "#000000",
         "fillMode": "crop",
         "hideWallpaperFilenames": false,
