@@ -36,7 +36,7 @@ if platform.is_windows() then
   c.default_prog          = { 'nu' }
   c.launch_menu           = {
     { label = 'cmd',  args = { 'cmd' }, },
-    { label = 'pwsh',  args = { 'pwsh', '-NoLogo' }, },
+    { label = 'pwsh', args = { 'pwsh', '-NoLogo' }, },
     { label = 'bash', args = { home .. '/scoop/apps/git/current/bin/bash.exe' }, },
   }
   c.mux_enable_ssh_agent=false
@@ -46,6 +46,12 @@ if platform.is_windows() then
     local tab, pane, window = mux.spawn_window(cmd or {})
     window:gui_window():maximize()
   end)
+end
+if platform.is_linux() then
+  c.default_prog          = { 'zsh' }
+  c.launch_menu           = {
+    { label = 'nushell', args = { 'nu' }, },
+  }
 end
 
 --= Options
