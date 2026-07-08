@@ -549,7 +549,7 @@ hl.window_rule({
   move = { "monitor_w * 0.37", "monitor_h * 0.45" },
 })
 hl.window_rule({
-  match = { title = "jetbrains-toolbox" },
+  match = { class = "jetbrains-toolbox" },
   move = { "(monitor_w*0.75)", "(monitor_h*0.01)" }, -- top right
 })
 --=== Legacy

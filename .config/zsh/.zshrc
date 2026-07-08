@@ -80,10 +80,8 @@ fi
 export LESS='--RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen'
 if _has rg; then
   alias rg='rg --smart-case'
-  alias grep='rg'
-else
-  alias grep='grep --color=auto'
 fi
+alias grep='grep --color=auto'
 alias rm='rm -i'
 alias mkdir='mkdir -p -v'
 alias ping='ping -c 5'
@@ -98,7 +96,10 @@ alias reload='exec zsh'
 alias cman='LANG=zh_CN.UTF-8 man'
 alias ipa="ip addr show | grep 'inet '"
 alias fps='ps aux | fzf'
-alias battery='upower -i $(upower -e | grep battery) | view'
+alias battery='upower -i $(upower -e | grep battery)'
+alias bat-rate='upower -i $(upower -e | grep battery) | awk "/History \(rate\):/{f=1;print;next}/History \(voltage\):/{f=0}f"'
+alias bat-volt='upower -i $(upower -e | grep battery) | awk "/History \(voltage\):/{f=1;print;next}/^  [a-zA-Z]/{f=0}f"'
+alias bat-history='upower -i $(upower -e | grep battery) | awk "/History \(rate\):/{r=1;print;next}/History \(voltage\):/{r=0;v=1;print;next}/^  [a-zA-Z]/{v=0} r||v"'
 alias docker_ip_fetcher='docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
 alias conf='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 compdef conf=git
