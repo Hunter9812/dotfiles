@@ -1,0 +1,11 @@
+[Unit]
+Description=Reload ThinkPad psmouse after resume
+After=suspend.target hibernate.target
+
+[Service]
+Type=oneshot
+ExecStartPre=-/usr/bin/modprobe -r psmouse
+ExecStart=/usr/bin/modprobe psmouse
+
+[Install]
+WantedBy=suspend.target hibernate.target
