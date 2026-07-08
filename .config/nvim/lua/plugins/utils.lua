@@ -8,13 +8,8 @@ return {
   },
   {
     "folke/persistence.nvim",
-    config = function()
-      require("persistence").setup()
-      vim.keymap.set("n", "<leader>rs", [[<cmd>lua require("persistence").load()<cr>]])
-      vim.keymap.set("n", "<leader>rS", [[<cmd>lua require("persistence").select()<cr>]])
-      vim.keymap.set("n", "<leader>rl", [[<cmd>lua require("persistence").load({ last = true})<cr>]])
-      vim.keymap.set("n", "<leader>rd", [[<cmd>lua require("persistence").stop()<cr>]])
-    end
+    event = "BufReadPre", -- this will only start session saving when an actual file was opened
+    opts = {},
   },
   {
     "windwp/nvim-autopairs",
@@ -25,61 +20,22 @@ return {
   },
   {
     "ethanholz/nvim-lastplace",
-    config = true,
-  },
-  -- {
-  --   "folke/flash.nvim",
-  --   config = function()
-  --     require("flash").setup()
-  --     vim.keymap.set({ "n", "x", "o" }, "s",
-  --       function()
-  --         require("flash").jump({
-  --           search = {
-  --             mode = function(str)
-  --               return "\\<" .. str
-  --             end,
-  --           },
-  --         })
-  --       end
-  --     )
-  --     vim.keymap.set({ "n", "x", "o" }, "S",
-  --       function()
-  --         require("flash").treesitter()
-  --       end
-  --     )
-  --     vim.keymap.set({ "o" }, "r",
-  --       function()
-  --         require("flash").remote()
-  --       end
-  --     )
-  --     vim.keymap.set({ "o", "x" }, "R",
-  --       function()
-  --         require("flash").treesitter_search()
-  --       end
-  --     )
-  --   end,
-  -- },
-  {
-    "kamykn/spelunker.vim",
-    event = "VeryLazy",
-    config = function()
-      vim.g.spelunker_check_type = 2
-    end
+    opts = {},
   },
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    config = true,
+    opts = {},
   },
   { -- enhance textobjects(a, i)
-    'echasnovski/mini.ai',
+    "echasnovski/mini.ai",
     event = "VeryLazy",
-    config = true,
+    opts = {},
   },
   {
     "echasnovski/mini.comment",
     event = "VeryLazy",
-    config = true,
+    opts = {},
   },
   {
     "kylechui/nvim-surround",
@@ -87,7 +43,13 @@ return {
     event = "VeryLazy",
   },
   {
-    "s1n7ax/nvim-window-picker",
+    "easymotion/vim-easymotion",
+    event = "VeryLazy",
+  },
+  {
+    's1n7ax/nvim-window-picker',
+    event = 'VeryLazy',
+    version = '2.*',
     config = function()
       require("window-picker").setup({
         filter_rules = {

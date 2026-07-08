@@ -42,12 +42,10 @@ global.mapleader = " "
 global.clipborad = "unnamedplus"
 
 -- Key Mappings --
-vim.keymap.set("n", "<C-s>", "ciw")
-
 vim.keymap.set("n", "<leader>w",  "<Cmd>w<CR>")
 vim.keymap.set("n", "<leader>q",  "<Cmd>bd<CR>")
 vim.keymap.set("n", "<leader>Q",  "<Cmd>bd!<CR>")
-vim.keymap.set("n", "<leader>d",  "<Cmd>diffthis<CR>")
+vim.keymap.set("n", "<leader>dh", "<Cmd>diffthis<CR>")
 vim.keymap.set("n", "<Tab>",      "<Cmd>bnext<CR>")
 vim.keymap.set("n", "<S-Tab>",    "<Cmd>bprevious<CR>")
 vim.keymap.set("n", "<leader>bn", "<Cmd>bnext<CR>")
@@ -58,11 +56,6 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv-gv")
 
 vim.keymap.set({ "v", "n" }, "<leader>y", "\"+y")
 vim.keymap.set({ "v", "n" }, "<leader>p", "\"+p")
-
-vim.keymap.set({ "n", "i", "v" }, "<Left>", "<Nop>")
-vim.keymap.set({ "n", "i", "v" }, "<Right>", "<Nop>")
-vim.keymap.set({ "n", "i", "v" }, "<Up>", "<Nop>")
-vim.keymap.set({ "n", "i", "v" }, "<Down>", "<Nop>")
 
 -- Autocmd --
 local function set_tab2()

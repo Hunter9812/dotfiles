@@ -2,25 +2,19 @@ return {
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
-    config = true,
+    opts = {},
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("ibl").setup()
-    end
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
   },
   {
     "lewis6991/gitsigns.nvim",
     event = "VeryLazy",
-    config = true,
-  },
-  {
-    "goolord/alpha-nvim",
-    config = function()
-      require'alpha'.setup(require'alpha.themes.dashboard'.config)
-    end
+    opts = {},
   },
   {
     "RRethy/vim-illuminate",
