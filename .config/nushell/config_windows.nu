@@ -19,3 +19,10 @@ $env.JAVA_TOOL_OPTIONS = "-Dfile.encoding=UTF-8"
 #== Abbr
 alias "scoop search" = ^scoop-search
 def o [path: string = '.'] { ^explorer $path }
+
+#== Utils
+def wi [
+    id: string  # winget package id
+] {
+    ^winget install --id $id --exact --silent --accept-package-agreements --accept-source-agreements --proxy 'http://127.0.0.1:11451'
+}
