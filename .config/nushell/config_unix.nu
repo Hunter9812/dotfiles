@@ -11,5 +11,6 @@ $env.SBT_OPTS = "-Dsbt.override.build.repos=true"
 #= Alias & Function
 #== Abbr
 alias se = ^sudoedit
+alias docker_ip_fetcher = ^docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"
 
 #= Officially recommended

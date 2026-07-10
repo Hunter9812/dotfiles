@@ -62,6 +62,32 @@ $env.FZF_CTRL_T_OPTS = "
     --bind 'ctrl-/:change-preview-window(down|hidden|)'
 "
 
+#= External Completers
+# See https://www.nushell.sh/cookbook/external_completers.html
+let carapace_completer = {|spans: list<string>|
+    carapace $spans.0 nushell ...$spans
+    | from json
+    | if ($in | default [] | where value =~ '^-.*ERR$' | is-empty) { $in } else { null }
+}
+# This completer will use carapace by default
+let external_completer = {|spans|
+    let expanded_alias = scope aliases
+    | where name == $spans.0
+    | get -o 0.expansion
+
+    let spans = if $expanded_alias != null {
+        $spans
+        | skip 1
+        | prepend ($expanded_alias | split row ' ' | take 1)
+    } else {
+        $spans
+    }
+
+    match $spans.0 {
+        _ => $carapace_completer
+    } | do $in $spans
+}
+
 #== Options
 $env.config.buffer_editor = $env.EDITOR
 $env.config.show_banner = false
@@ -71,6 +97,7 @@ $env.config.cursor_shape = {
     vi_insert: blink_line
     vi_normal: block
 }
+$env.config.completions.external.completer = $external_completer
 $env.config.keybindings ++= [
     {
         name: emacs_c-f
@@ -100,6 +127,8 @@ $env.config.keybindings ++= [
 ]
 
 #= Alias & Function
+# See https://www.nushell.sh/book/aliases.html
+# See https://www.nushell.sh/book/custom_commands.html
 #== Abbr
 alias ni  = touch
 alias vi  = ^nvim
@@ -111,9 +140,8 @@ alias oc  = ^opencode
 
 #== Utils
 alias reload = exec nu
-alias conf  = git --git-dir ($env.HOME | path join ".cfg") --work-tree $env.HOME
-alias confg = lazygit -g ($env.HOME | path join ".cfg") -w $env.HOME
-alias docker_ip_fetcher = docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"
+alias conf  = ^git --git-dir ($env.HOME | path join ".cfg") --work-tree $env.HOME
+alias confg = ^lazygit -g ($env.HOME | path join ".cfg") -w $env.HOME
 def --env proxy [] {
 	$env.http_proxy  = 'http://127.0.0.1:11451'
 	$env.https_proxy = 'http://127.0.0.1:11451'
@@ -157,6 +185,8 @@ def --env y [...args] {
 	}
 	rm -fp $tmp
 }
+
+source $"($nu.cache-dir)/carapace.nu"
 
 #== One-time setup
 # Generates integration scripts
