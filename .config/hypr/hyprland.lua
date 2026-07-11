@@ -355,8 +355,8 @@ hl.bind("SUPER + SHIFT + left", hl.dsp.window.swap({ direction = "l" }))
 hl.bind("SUPER + SHIFT + right", hl.dsp.window.swap({ direction = "r" }))
 hl.bind("SUPER + SHIFT + up", hl.dsp.window.swap({ direction = "u" }))
 hl.bind("SUPER + SHIFT + down", hl.dsp.window.swap({ direction = "d" }))
-hl.bind("SUPER + comma", hl.dsp.layout("swapcol l"))  -- only for Scrolling
-hl.bind("SUPER + period", hl.dsp.layout("swapcol r")) -- only for Scrolling
+hl.bind("SUPER + SHIFT + comma", hl.dsp.layout("consume_or_expel prev"))  -- only for Scrolling
+hl.bind("SUPER + SHIFT + period", hl.dsp.layout("consume_or_expel next")) -- only for Scrolling
 -- Vim-like
 hl.bind("SUPER + H", hl.dsp.focus({ direction = "left" }))
 hl.bind("SUPER + L", hl.dsp.focus({ direction = "right" }))
