@@ -33,6 +33,12 @@ option.undodir = vim.fn.expand('$HOME/.local/share/nvim/undo')
 option.exrc = true
 option.wrap = false
 option.splitright = true
+option.list = true
+option.listchars = {
+  tab = "» ",
+  trail = "·",
+  nbsp = "␣",
+}
 
 -- Buffer Settings --
 buffer.fileenconding = "utf-8"
