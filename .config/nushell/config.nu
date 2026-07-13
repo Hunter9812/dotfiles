@@ -146,10 +146,11 @@ def --env proxy [] {
 	$env.http_proxy  = 'http://127.0.0.1:11451'
 	$env.https_proxy = 'http://127.0.0.1:11451'
 	$env.all_proxy   = 'http://127.0.0.1:11451'
+	$env.no_proxy    = 'localhost,127.0.0.1,::1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12'
 	echo 'Terminal proxy enabled.'
 }
 def --env unproxy [] {
-	hide-env http_proxy https_proxy all_proxy
+	hide-env http_proxy https_proxy all_proxy no_proxy
 	echo 'Terminal proxy disabled.'
 }
 def --env cdw [cmd: string] {
