@@ -1,9 +1,14 @@
+vim.loader.enable()
+
 local home = os.getenv("HOME") or os.getenv("USERPROFILE")
 local platform = dofile(home .. "/.config/lua/platform.lua")
 
-vim.loader.enable()
-require("config.essentials")
+require("config.options")
+-- Set `mapleader` and `maplocalleader` before loading lazy.nvim
+-- so plugins can use the correct leader keys
 require("config.lazy")
+require("config.keymaps")
+require("config.autocmds")
 
 if platform.is_windows() then
   -- fixme: 我发现 pwsh 有问题是因为 yazi.nvim 每次打开都会崩溃，后来我找到了下面的设置，但是在嵌套打开时还是会崩溃，作者并没有 Windows 测试环境，感觉难办了
