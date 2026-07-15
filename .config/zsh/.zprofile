@@ -5,11 +5,13 @@ export profile="$ZDOTDIR/.zshrc" # just like pwsh
 
 #= Path
 export GOPATH="$HOME/.local/share/go"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 typeset -U path PATH
 path=(
   "$HOME/.local/bin"
   "$HOME/.local/share/coursier/bin"
   "$HOME/.local/share/JetBrains/Toolbox/scripts"
+  "$PNPM_HOME/bin"
   $path
 )
 export PATH
