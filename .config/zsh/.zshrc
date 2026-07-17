@@ -234,4 +234,6 @@ fi
 function zvm_after_init() {
   zvm_bindkey viins '^R' fzf-history-widget
   zvm_bindkey vicmd '/'  fzf-history-widget
+  zvm_bindkey vicmd '?'  fzf-file-widget
+  zvm_bindkey viins '^G' fzf-cd-widget
 }
