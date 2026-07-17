@@ -136,7 +136,6 @@ alias c   = ^code .
 alias s   = ^fastfetch
 alias g   = ^lazygit
 alias lzd = ^lazydocker
-alias oc  = ^opencode
 
 #== Utils
 alias reload = exec nu

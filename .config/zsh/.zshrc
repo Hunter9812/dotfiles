@@ -42,7 +42,6 @@ alias s='fastfetch'
 alias o='$fileManager . >/dev/null 2>&1 &'
 alias g='lazygit'
 alias c='code .'
-alias oc='opencode'
 alias cmd='command'
 
 #== Enhance
