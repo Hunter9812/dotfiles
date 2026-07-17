@@ -22,7 +22,7 @@ def o [path: string = '.'] { ^explorer $path }
 
 #== Utils
 def wi [
-    id: string  # winget package id
+  id: string  # winget package id
 ] {
-    ^winget install --id $id --exact --silent --accept-package-agreements --accept-source-agreements --proxy 'http://127.0.0.1:11451'
+  ^winget install --id $id --exact --silent --accept-package-agreements --accept-source-agreements --proxy 'http://127.0.0.1:11451'
 }
