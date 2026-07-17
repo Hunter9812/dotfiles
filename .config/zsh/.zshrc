@@ -45,6 +45,8 @@ alias c='code .'
 alias cmd='command'
 
 #== Enhance
+# Remove '/' from WORDCHARS so Ctrl+w deletes path components
+WORDCHARS=${WORDCHARS//\/}
 _has() { command -v "$1" >/dev/null 2>&1 }
 # zoxide, eza, bat, ripgrep
 if _has zoxide; then
