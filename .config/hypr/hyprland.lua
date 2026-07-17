@@ -312,7 +312,7 @@ hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp -d)" - | wl-copy'
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd('hyprpicker --autocopy --notify --render-inactive --lowercase-hex --scale=2 --radius=150'))
 
 --= Core binds
-hl.bind("ALT + space", hl.dsp.exec_cmd(launcher .. " toggle"))
+hl.bind("ALT + space", hl.dsp.exec_cmd("fcitx5-remote -s keyboard-us; " .. launcher .. " toggle"))
 hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. " settings toggle"))
 hl.bind("SUPER + S", hl.dsp.exec_cmd(ipc .. " controlCenter toggle"))
 hl.bind("SUPER + U", hl.dsp.exec_cmd(ipc .. " sessionMenu toggle"))
