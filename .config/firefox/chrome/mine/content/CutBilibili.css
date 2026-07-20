@@ -4,6 +4,7 @@
     ul.left-entry > li:nth-child(7), /* 赛事 */
     ul.left-entry li.v-popover-wrap.left-loc-entry, /* 周年庆 */
     ul.right-entry .vip-wrap, /* 大会员 */
+    .bpx-player-ctrl-flac, /* Hi-Res 无损音质 */
     #xxx {
         display: none !important;
         height: 0 !important;
