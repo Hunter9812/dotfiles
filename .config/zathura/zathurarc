@@ -1,0 +1,29 @@
+# see https://man.archlinux.org/man/extra/zathura/zathurarc.5.en
+
+#= Options
+set selection-clipboard clipboard
+set adjust-open width
+
+#= Map
+map i zoom in
+map o zoom out
+map e rotate rotate-ccw
+#== Default Key Map (Vim keybind difference notes)
+# [缩放]
+#   数字+= 直接指定缩放比例
+#   zI放大 zO缩小 z0重置
+#   数字+= 直接指定缩放比例
+# [页面适配窗口]
+#   a：整页适配窗口 best-fit
+#   s：宽度铺满窗口 fit-width
+# [翻页]: Space 下一页；Shift+Space 上一页
+# [视图切换]
+#   d      单页/双页模式切换
+#   Ctrl+r 反色夜间阅读
+#   R      重载PDF文件
+#   Tab    调出侧边目录大纲
+#   F11全屏、F5幻灯片模式
+# [链接操作]
+#   f 高亮所有页面内超链接，按数字打开
+#   F 打印链接地址
+#   c 复制链接到剪贴板
