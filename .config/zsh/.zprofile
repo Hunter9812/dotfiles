@@ -6,15 +6,32 @@ export profile="$ZDOTDIR/.zshrc" # just like pwsh
 #= Path
 export GOPATH="$HOME/.local/share/go"
 export PNPM_HOME="$HOME/.local/share/pnpm"
+local TEXLIVE_ROOT="$HOME/opt/texlive/2026"
+
 typeset -U path PATH
 path=(
   "$HOME/.local/bin"
   "$HOME/.local/share/coursier/bin"
   "$HOME/.local/share/JetBrains/Toolbox/scripts"
   "$PNPM_HOME/bin"
+  "$TEXLIVE_ROOT/bin/x86_64-linux"
   $path
 )
 export PATH
+
+typeset -U manpath MANPATH
+manpath=(
+  $TEXLIVE_ROOT/texmf-dist/doc/man
+  $manpath
+)
+export MANPATH
+
+typeset -U infopath INFOPATH
+infopath=(
+  $TEXLIVE_ROOT/texmf-dist/doc/info
+  $infopath
+)
+export INFOPATH
 
 #== App
 
