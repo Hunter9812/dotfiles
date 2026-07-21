@@ -307,9 +307,19 @@ hl.bind("SUPER + backslash", hl.dsp.exec_cmd(terminal))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
 hl.bind("SUPER + SHIFT + Q", hl.dsp.exec_cmd(browser))
 hl.bind("CTRL + SHIFT + Q", hl.dsp.exec_cmd(dict))
-hl.bind("Print", hl.dsp.exec_cmd('grim -g "$(slurp)" - | swappy -f -'))
-hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp -d)" - | wl-copy'))
 hl.bind("SUPER + SHIFT + C", hl.dsp.exec_cmd('hyprpicker --autocopy --notify --render-inactive --lowercase-hex --scale=2 --radius=150'))
+--== Screenshot
+local screenshot_dir = "~/Pictures/screenshots"
+hl.bind("Print", hl.dsp.exec_cmd('grim - | wl-copy'))
+hl.bind("SUPER + Print", hl.dsp.exec_cmd(
+    'mkdir -p ' .. screenshot_dir ..
+    ' && file=' .. screenshot_dir ..
+    '/Screenshot_$(date +%Y-%m-%d_%H-%M-%S).png' ..
+    ' && grim "$file"' ..
+    ' && notify-send -i imv "Screenshot saved"'
+))
+hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp -d)" - | wl-copy'))
+hl.bind("ALT + F1", hl.dsp.exec_cmd('grim -g "$(slurp)" - | swappy -f -'))
 
 --= Core binds
 hl.bind("ALT + space", hl.dsp.exec_cmd("fcitx5-remote -s keyboard-us; " .. launcher .. " toggle"))
