@@ -165,6 +165,8 @@ def --env cdw [cmd: string] {
   print $"Changing to directory: ($cmd_dir)"
   cd $cmd_dir
 }
+
+# Convert DOS/Windows line endings (CRLF) to Unix line endings (LF)
 def dos2lf [...files: string] {
   for f in $files {
     if ($f | path exists) {
@@ -173,6 +175,53 @@ def dos2lf [...files: string] {
       | save -f $f
     }
   }
+}
+
+# Convert Traditional Chinese text to Simplified Chinese using OpenCC
+def t2s [ input: path ] { ^opencc -c t2s.json -i $input -o $input --in-place }
+
+def generate-captions [
+  input: path
+  --model (-m): string = "small" # base, small, medium
+  --language (-l): string = "zh" # en, zh, de
+  --prompt (-p): string = ""
+] {
+  let wav = ($input | path parse | update extension "wav" | path join)
+  let srt = ($input | path parse | update extension "srt" | path join)
+
+  ^ffmpeg -i $input -ar 16000 -ac 1 -c:a pcm_s16le $wav
+
+  let model_path = ($env.HOME | path join $".local/share/whisper/models/ggml-($model).bin")
+
+  let final_prompt = if $language == "zh" {
+    # [Simplified Chinese display problem](https://github.com/ggml-org/whisper.cpp/issues/3344)
+    # The prompt can't promise 100% working. You can use opencc to convert the transcribe result.
+    if ($prompt | is-empty) {
+      "请使用简体中文输出结果"
+    } else {
+      $"($prompt)，请使用简体中文输出结果"
+    }
+  } else {
+    $prompt
+  }
+
+  (
+    ^whisper-cli
+    -osrt
+    -f $wav
+    -m $model_path
+    # See https://github.com/ggml-org/whisper.cpp/blob/021eef1000b0a84cc08575aac3352116c72e8187/src/whisper.cpp#L246-L347
+    -l $language
+    --prompt $final_prompt
+  )
+
+  let generated_srt = $"($wav).srt"
+
+  if ($generated_srt | path exists) {
+    mv $generated_srt $srt
+  }
+
+  rm $wav
 }
 
 #= Officially recommended
