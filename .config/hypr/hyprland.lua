@@ -343,12 +343,13 @@ hl.bind("SUPER + F4", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 &
 hl.bind("SUPER + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind("SUPER + P", hl.dsp.window.pseudo())
 -- hl.bind("SUPER + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+--== Fullscreen
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
-hl.bind("SUPER + ALT + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
+hl.bind("SUPER + SHIFT + M", hl.dsp.window.fullscreen({ mode = "maximized" }))
 -- Keeps the window non-fullscreen, but the client goes into fullscreen mode within the window.
 hl.bind("SUPER + CTRL + F", hl.dsp.window.fullscreen_state({ internal = 0, client = 2 }))
 -- Fullscreens the application and keeps the client in non-fullscreen mode.
-hl.bind("ALT + Return", hl.dsp.window.fullscreen_state({ internal = 2, client = 0 }))
+hl.bind("SUPER + SHIFT + F", hl.dsp.window.fullscreen_state({ internal = 2, client = 0 }))
 
 -- Move focus
 hl.bind("ALT + Tab", hl.dsp.exec_cmd("snappy-switcher next --mod alt"),
