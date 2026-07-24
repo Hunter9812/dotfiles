@@ -88,8 +88,8 @@ alias mkdir='mkdir -p -v'
 alias ping='ping -c 5'
 alias df='df -h'
 alias du='du -c -h'
-alias cpr='rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1'
-alias mvr='rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --remove-source-files'
+alias lxfer='rsync --archive --mkpath --partial --whole-file --human-readable --info=stats1,progress2'
+alias lxmove='lxfer --remove-source-files'
 tldr() { [[ "$1" == "-u" ]] && { proxy; command tldr "$@"; unproxy; } || command tldr "$@"; }
 
 #== Utils
