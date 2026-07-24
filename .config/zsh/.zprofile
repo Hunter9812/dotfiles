@@ -23,6 +23,7 @@ typeset -U manpath MANPATH
 manpath=(
   $TEXLIVE_ROOT/texmf-dist/doc/man
   $manpath
+  ""
 )
 export MANPATH
 
@@ -30,6 +31,7 @@ typeset -U infopath INFOPATH
 infopath=(
   $TEXLIVE_ROOT/texmf-dist/doc/info
   $infopath
+  ""
 )
 export INFOPATH
 
