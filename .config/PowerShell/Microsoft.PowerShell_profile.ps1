@@ -41,6 +41,7 @@ function l { eza --color=auto --icons=auto --group-directories-first --all --git
 #== Utils
 function reload { pwsh -NoLogo; exit }
 function conf { git --git-dir="$HOME/.cfg" --work-tree="$HOME" @Args }
+function confg { lazygit -g $HOME/.cfg -w $HOME }
 function env { rundll32.exe sysdm.cpl,EditEnvironmentVariables }
 function proxy {
 	$env:HTTP_PROXY="http://127.0.0.1:11451"; $env:HTTPS_PROXY="http://127.0.0.1:11451";
