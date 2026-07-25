@@ -137,6 +137,9 @@ alias s   = ^fastfetch
 alias g   = ^lazygit
 alias lzd = ^lazydocker
 
+#== Enhance
+alias cat = ^bat --paging=never --style=plain
+
 #== Utils
 alias reload = exec nu
 alias conf  = ^git --git-dir ($env.HOME | path join ".cfg") --work-tree $env.HOME
