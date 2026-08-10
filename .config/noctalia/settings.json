@@ -80,23 +80,25 @@
             "center": [
                 {
                     "compactMode": true,
-                    "hideMode": "hidden",
-                    "hideWhenIdle": false,
-                    "id": "MediaMini",
-                    "maxWidth": 150,
-                    "panelShowAlbumArt": true,
-                    "scrollingMode": "hover",
-                    "showAlbumArt": true,
-                    "showArtistFirst": false,
-                    "showProgressRing": true,
-                    "showVisualizer": false,
+                    "diskPath": "/",
+                    "iconColor": "none",
+                    "id": "SystemMonitor",
+                    "showCpuCores": false,
+                    "showCpuFreq": false,
+                    "showCpuTemp": false,
+                    "showCpuUsage": true,
+                    "showDiskAvailable": false,
+                    "showDiskUsage": false,
+                    "showDiskUsageAsPercent": false,
+                    "showGpuTemp": false,
+                    "showLoadAverage": false,
+                    "showMemoryAsPercent": false,
+                    "showMemoryUsage": true,
+                    "showNetworkStats": true,
+                    "showSwapUsage": false,
                     "textColor": "none",
-                    "useFixedWidth": false,
-                    "visualizerType": "linear"
-                },
-                {
-                    "id": "Spacer",
-                    "width": 20
+                    "useMonospaceFont": true,
+                    "usePadding": false
                 }
             ],
             "left": [
@@ -145,28 +147,6 @@
             ],
             "right": [
                 {
-                    "compactMode": true,
-                    "diskPath": "/",
-                    "iconColor": "none",
-                    "id": "SystemMonitor",
-                    "showCpuCores": false,
-                    "showCpuFreq": false,
-                    "showCpuTemp": false,
-                    "showCpuUsage": true,
-                    "showDiskAvailable": false,
-                    "showDiskUsage": false,
-                    "showDiskUsageAsPercent": false,
-                    "showGpuTemp": false,
-                    "showLoadAverage": false,
-                    "showMemoryAsPercent": false,
-                    "showMemoryUsage": true,
-                    "showNetworkStats": true,
-                    "showSwapUsage": false,
-                    "textColor": "none",
-                    "useMonospaceFont": true,
-                    "usePadding": false
-                },
-                {
                     "blacklist": [
                     ],
                     "chevronColor": "none",
@@ -178,9 +158,7 @@
                         "Keyboard - English (US)",
                         "键盘 - 英语（美国）",
                         "Rime",
-                        "中州韵",
-                        "微信",
-                        "chrome_status_icon_1"
+                        "中州韵"
                     ]
                 },
                 {
@@ -679,9 +657,9 @@
     },
     "ui": {
         "boxBorderEnabled": false,
-        "fontDefault": "Sans Serif",
+        "fontDefault": "微软雅黑",
         "fontDefaultScale": 1,
-        "fontFixed": "monospace",
+        "fontFixed": "JetBrains Mono",
         "fontFixedScale": 1,
         "panelBackgroundOpacity": 0.93,
         "panelsAttachedToBar": true,
