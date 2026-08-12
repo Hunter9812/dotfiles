@@ -1,6 +1,7 @@
 #= Envirment
 export LANG="zh_CN.UTF-8"
 export EDITOR="nvim"
+export TERMINAL="wezterm"
 export profile="$ZDOTDIR/.zshrc" # just like pwsh
 
 #= Path

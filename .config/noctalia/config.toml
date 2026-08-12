@@ -1,0 +1,276 @@
+[bar.default]
+capsule = true
+capsule_border = "on_primary"
+capsule_foreground = "primary"
+center = [ "group:g1" ]
+end = [ "tray", "battery", "network", "volume", "brightness", "notifications", "clock" ]
+margin_ends = 0
+position = "right"
+start = [ "control-center", "workspaces", "media" ]
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border = "on_primary"
+    enabled = true
+    fill = "surface_variant"
+    foreground = "primary"
+    id = "g1"
+    members = [ "cpu", "ram", "network_rx", "network_tx" ]
+    opacity = 1.0
+    padding = 6.0
+
+[control_center]
+hidden_tabs = [ "media" ]
+sidebar_section = "none"
+
+    [[control_center.shortcuts]]
+    type = "clipboard"
+
+    [[control_center.shortcuts]]
+    type = "bluetooth"
+
+    [[control_center.shortcuts]]
+    type = "caffeine"
+
+    [[control_center.shortcuts]]
+    type = "dark_mode"
+
+    [[control_center.shortcuts]]
+    type = "mic_mute"
+
+    [[control_center.shortcuts]]
+    type = "nightlight"
+
+[desktop_widgets]
+enabled = false
+
+[dock]
+auto_hide = true
+enabled = true
+launcher_position = "end"
+pinned = [ "org.wezfurlong.wezterm", "firefox", "webapp-chatgpt", "mihomo-party" ]
+reserve_space = false
+
+[hot_corners]
+delay_ms = 100
+enabled = true
+
+    [hot_corners.bottom_right]
+    action = "command"
+    command = "~/.config/hypr/script/toggle_desktop.sh"
+
+    [hot_corners.top_left]
+    action = "window_switcher"
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 660.0
+
+[keybinds]
+down = [ "Down", "Ctrl+j" ]
+left = [ "Left", "Ctrl+h" ]
+right = [ "Right", "Ctrl+l" ]
+up = [ "Up", "Ctrl+k" ]
+
+[location]
+auto_locate = true
+
+[lockscreen]
+blur_intensity = 0.19999999552965164
+
+[lockscreen_widgets]
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 640.0
+    cy = 538.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[notification]
+position = "bottom_right"
+
+[osd]
+position = "bottom_center"
+
+    [osd.kinds]
+    bluetooth = false
+    caffeine = false
+    dnd = false
+    keyboard_layout = false
+    wifi = false
+
+[plugins]
+auto_update = false
+
+[shell]
+avatar_path = "~/Downloads/Pictures/config/avatar/tachibana_kimika.jpg"
+clipboard_history_max_entries = 3000
+font_family = "Microsoft YaHei"
+lang = "en"
+# lang = "zh-Hans"
+screen_time_enabled = true
+settings_window_translucent = true
+
+    [shell.launcher.providers.calculator]
+    global = true
+
+    [shell.launcher.providers.session]
+    global = true
+
+    [shell.panel]
+    open_near_click_control_center = true
+    polkit_placement = "attached"
+    session_placement = "floating"
+    session_position = "center"
+    transparency_mode = "soft"
+
+    [shell.screenshot]
+    directory = "~/Downloads/Pictures/screenshots/anime"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "1"
+    variant = "destructive"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "2"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock_and_suspend"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "command"
+    command = "systemctl hibernate"
+    countdown_seconds = 0.0
+    enabled = true
+    glyph = "hibernate"
+    label = "hibernate"
+    shortcut = "4"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "5"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "logout"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "6"
+    variant = "default"
+
+[theme]
+community_palette = "Oxocarbon"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "hyprland", "qt" ]
+
+[wallpaper]
+directory = "~/Downloads/Pictures/config/wallpapers/pc"
+transition_on_startup = true
+
+    [wallpaper.automation]
+    enabled = true
+
+    [wallpaper.default]
+    path = "~/Downloads/Pictures/config/wallpapers/pc/landscape.jpg"
+
+[widget.battery]
+show_label = false
+
+[widget.brightness]
+show_label = false
+
+[widget.cpu]
+show_value = false
+
+[widget.media]
+hide_when_no_media = true
+
+[widget.network]
+show_label = false
+vpn_status = "hidden"
+
+[widget.network_rx]
+show_value = false
+
+[widget.network_tx]
+network_speed_compact = true
+show_value = false
+
+[widget.ram]
+show_value = false
+
+[widget.sysmon]
+show_value = false
+stat = "ram_used"
+
+[widget.tray]
+drawer = true
+pinned = [ "Fcitx" ]
+
+[widget.volume]
+show_label = false
+
+[widget.workspaces]
+font_weight = 700
+label_source = "name"
+labels_only_when_occupied = true
+max_label_chars = 2

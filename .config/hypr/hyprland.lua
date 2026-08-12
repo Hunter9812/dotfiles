@@ -5,6 +5,7 @@
 -- You can (and should!!) split this configuration into multiple files
 -- Create your files separately and then require them like this:
 -- require("myColors")
+require("noctalia")
 
 ------------------
 ---- MONITORS ----
@@ -54,7 +55,7 @@ hl.on("hyprland.start", function()
 
   -- Desktop
   hl.exec_cmd('fcitx5')
-  hl.exec_cmd('qs -c noctalia-shell')
+  hl.exec_cmd('noctalia')
 
   -- Usual
   hl.exec_cmd(browser)
@@ -143,26 +144,26 @@ hl.config({
   },
 
   decoration = {
-    rounding         = 12,
+    rounding         = 20,
     rounding_power   = 2,
+
+    shadow = {
+      enabled = true,
+      range = 4,
+      render_power = 3,
+      color = 0xee1a1a1a,
+    },
+
+    blur = {
+      enabled = true,
+      size = 3,
+      passes = 2,
+      vibrancy = 0.1696,
+    },
 
     -- Change transparency of focused and unfocused windows
     active_opacity   = 1.0,
     inactive_opacity = 0.9,
-
-    shadow           = {
-      enabled      = true,
-      range = 4,
-      render_power = 3,
-      color = "rgba(00000070)", -- 0xee1a1a1a
-    },
-
-    blur             = {
-      enabled  = true,
-      size     = 3,
-      passes   = 2,
-      vibrancy = 0.1696,
-    },
   },
 
   animations = {
@@ -299,9 +300,6 @@ hl.device({
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 
-local ipc = "qs -c noctalia-shell ipc call"
-local launcher = ipc .. " launcher"
-
 --= App binds
 hl.bind("SUPER + backslash", hl.dsp.exec_cmd(terminal))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
@@ -322,18 +320,18 @@ hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp -d)" - | wl-copy'
 hl.bind("ALT + F1", hl.dsp.exec_cmd('grim -g "$(slurp)" - | swappy -f -'))
 
 --= Core binds
-hl.bind("ALT + space", hl.dsp.exec_cmd("fcitx5-remote -s keyboard-us; " .. launcher .. " toggle"))
-hl.bind("SUPER + I", hl.dsp.exec_cmd(ipc .. " settings toggle"))
-hl.bind("SUPER + S", hl.dsp.exec_cmd(ipc .. " controlCenter toggle"))
-hl.bind("SUPER + U", hl.dsp.exec_cmd(ipc .. " sessionMenu toggle"))
+local ipc = "noctalia msg "
+local panel = ipc .. "panel-toggle "
+
+hl.bind("ALT + space",      hl.dsp.exec_cmd("fcitx5-remote -s keyboard-us; " .. panel .. "launcher"))
+hl.bind("SUPER + I",        hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 -- SUPER + L is used for Vim-style window movement, so this is remapped to a macOS-style shortcut
-hl.bind("SUPER + CTRL + Q", hl.dsp.exec_cmd(ipc .. " lockScreen lock"))
-hl.bind("SUPER + C", hl.dsp.exec_cmd(ipc .. " calendar toggle"))
-hl.bind("SUPER + R", hl.dsp.exec_cmd(launcher .. " command"))
-hl.bind("SUPER + slash", hl.dsp.exec_cmd(launcher .. " windows"))
-hl.bind("SUPER + V", hl.dsp.exec_cmd(launcher .. " clipboard"))
-hl.bind("CTRL + grave", hl.dsp.exec_cmd(launcher .. " clipboard"))
-hl.bind("SUPER + M", hl.dsp.exec_cmd(ipc .. " systemMonitor toggle"))
+hl.bind("SUPER + CTRL + Q", hl.dsp.exec_cmd(ipc .. "session lock"))
+hl.bind("SUPER + U",        hl.dsp.exec_cmd(panel .. "session"))
+hl.bind("SUPER + V",        hl.dsp.exec_cmd(panel .. "clipboard"))
+hl.bind("CTRL + grave",     hl.dsp.exec_cmd(panel .. "clipboard"))
+hl.bind("SUPER + S",        hl.dsp.exec_cmd(panel .. "control-center"))
+hl.bind("SUPER + C",        hl.dsp.exec_cmd(panel .. "control-center calendar"))
 hl.bind("CTRL + SHIFT + escape", hl.dsp.exec_cmd(taskManager))
 
 --= Window binds
@@ -462,14 +460,14 @@ end
 -- hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
 -- hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
 -- hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
--- hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
+hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
 -- hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
 -- hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. " volume increase"), { locked = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. " volume decrease"), { locked = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. " volume muteOutput"), { locked = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. " brightness increase"), { locked = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. " brightness decrease"), { locked = true })
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd(ipc .. "volume-up"))
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd(ipc .. "volume-down"))
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd(ipc .. "volume-mute"))
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd(ipc .. "brightness-up"))
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(ipc .. "brightness-down"))
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
@@ -572,11 +570,21 @@ hl.window_rule({
 hl.window_rule({ match = { title = "flameshot-pin" }, content = "photo", persistent_size = true, })
 
 --== Plugins
--- Blur for the Noctalia bar and panels background
+hl.window_rule({
+    match = { class = "dev.noctalia.Noctalia" },
+    float = true,
+    size = { 1080, 920 },
+})
+-- Enable blur for Noctalia’s bar, panels, dock, and notifications.
 hl.layer_rule({
   name = "noctalia",
-  match = { namespace = "noctalia-background-.*$" },
-  ignore_alpha = 0.5, blur = true, blur_popups = true,
+  match = {
+    namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+  },
+  no_anim = true,
+  ignore_alpha = 0.5,
+  blur = true,
+  blur_popups = true,
 })
 
 -- Liquid Glass blur rules
@@ -654,3 +662,6 @@ hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, border
 hl.window_rule({ match = { float = false, workspace = "w[tv1]s[false]" }, rounding = 0 })
 hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, border_size = 0 })
 hl.window_rule({ match = { float = false, workspace = "f[1]s[false]" }, rounding = 0 })
+
+-- For Noctalia Color templates
+require("noctalia").apply_theme()
