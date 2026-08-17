@@ -211,7 +211,6 @@ ZSH_PLUGIN_DIR='/usr/share/zsh/plugins'
 plugins=(
   "$NVM_DIR/nvm.sh"
   "$NVM_DIR/bash_completion"
-  '/opt/miniforge/etc/profile.d/conda.sh'
   "$ZSH_PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
   "$ZSH_PLUGIN_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
   "$ZSH_PLUGIN_DIR/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
