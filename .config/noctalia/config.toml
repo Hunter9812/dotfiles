@@ -138,6 +138,7 @@ position = "bottom_center"
     caffeine = false
     dnd = false
     keyboard_layout = false
+    media = false
     wifi = false
 
 [plugins]
@@ -195,7 +196,7 @@ settings_window_translucent = true
     countdown_seconds = 0.0
     enabled = true
     glyph = "hibernate"
-    label = "hibernate"
+    label = "Hibernate"
     shortcut = "4"
     variant = "default"
 
@@ -215,7 +216,7 @@ settings_window_translucent = true
 
 [theme]
 community_palette = "Oxocarbon"
-mode = "dark"
+mode = "auto"
 source = "wallpaper"
 wallpaper_scheme = "m3-content"
 
@@ -268,6 +269,10 @@ pinned = [ "Fcitx" ]
 
 [widget.volume]
 show_label = false
+
+    [widget.volume.actions]
+    scroll_down = "volume-down 2"
+    scroll_up = "volume-up 2"
 
 [widget.workspaces]
 font_weight = 700
