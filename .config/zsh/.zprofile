@@ -49,3 +49,15 @@ export COURSIER_REPOSITORIES="https://maven.aliyun.com/repository/public"
 
 #== Toolchain config
 export SBT_OPTS="-Dsbt.override.build.repos=true"
+
+#= Officially recommended
+#== Check and load something
+plugins=(
+  '/etc/profile.d/flatpak.sh'
+)
+
+for p in $plugins; do
+  if [[ -f "$p" ]]; then
+    source "$p"
+  fi
+done
