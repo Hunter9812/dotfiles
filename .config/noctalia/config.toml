@@ -271,6 +271,7 @@ pinned = [ "Fcitx" ]
 show_label = false
 
     [widget.volume.actions]
+    back = "exec audio-toggle.sh"
     scroll_down = "volume-down 2"
     scroll_up = "volume-up 2"
 
