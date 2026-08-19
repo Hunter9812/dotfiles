@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# To find the Windows GRUB menuentry ID:
+# grep "menuentry.*Windows" /boot/grub/grub.cfg | sed -n "s/.*menuentry_id_option '\([^']*\)'.*/\1/p"
+#
+# Replace the ID below with the output if it changes.
+sudo grub-reboot 'osprober-efi-8172-B4D2' && sudo reboot
