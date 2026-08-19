@@ -89,6 +89,9 @@ up = [ "Up", "Ctrl+k" ]
 
 [location]
 auto_locate = true
+custom_schedule = true
+sunrise = "08:00"
+sunset = "16:00"
 
 [lockscreen]
 blur_intensity = 0.19999999552965164
@@ -126,6 +129,10 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
+
+[nightlight]
+enabled = true
+temperature_night = 4500
 
 [notification]
 position = "bottom_right"
