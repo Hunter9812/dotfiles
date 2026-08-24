@@ -10,10 +10,3 @@ require("eza-preview"):setup({
   follow_symlinks = true,
   dereference = true
 })
-
-if platform.is_linux() then
-  require("recycle-bin"):setup({
-    -- Optional: Override automatic trash directory discovery
-    trash_dir = home .. "/.local/share/Trash",  -- Uncomment to use specific directory
-  })
-end

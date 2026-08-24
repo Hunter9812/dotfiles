@@ -101,6 +101,7 @@ alias bat-rate='upower -i $(upower -e | grep battery) | awk "/History \(rate\):/
 alias bat-volt='upower -i $(upower -e | grep battery) | awk "/History \(voltage\):/{f=1;print;next}/^  [a-zA-Z]/{f=0}f"'
 alias bat-history='upower -i $(upower -e | grep battery) | awk "/History \(rate\):/{r=1;print;next}/History \(voltage\):/{r=0;v=1;print;next}/^  [a-zA-Z]/{v=0} r||v"'
 alias docker_ip_fetcher='docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
+alias lazypodman="DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock lazydocker"
 alias conf='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 compdef conf=git
 # See https://github.com/jesseduffield/lazygit/issues/5469#issuecomment-4213154549
@@ -189,10 +190,10 @@ alias pkgclr='sudo pacman -Rns $(pacman -Qdtq)'
 alias lzd='lazydocker'
 
 function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	command yazi "$@" --cwd-file="$tmp"
 	IFS= read -r -d '' cwd < "$tmp"
-	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
 	command rm -f -- "$tmp"
 }
 
