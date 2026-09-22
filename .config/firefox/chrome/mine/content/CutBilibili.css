@@ -1,10 +1,14 @@
 @-moz-document domain("bilibili.com") {
     .adblock-tips,
-    ul.left-entry > li:nth-child(5), /* 会员购 */
-    ul.left-entry > li:nth-child(7), /* 赛事 */
-    ul.left-entry li.v-popover-wrap.left-loc-entry, /* 周年庆 */
-    ul.right-entry .vip-wrap, /* 大会员 */
     .bpx-player-ctrl-flac, /* Hi-Res 无损音质 */
+    /* 左侧 */
+    div.left-entry__item:nth-child(5), /* 会员购 */
+    div.left-entry__item:nth-child(7), /* 赛事 */
+    div.left-entry__item:nth-child(9), /* 下载客户端 */
+    /* 右侧 */
+    .vip-entry, /* 大会员 */
+    .upload-entry, /* 投稿 */
+    div.right-entry__item:nth-child(7) /* 创作中心 */
     #xxx {
         display: none !important;
         height: 0 !important;
