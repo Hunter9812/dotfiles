@@ -246,7 +246,6 @@ function ln {
 }
 
 #= Officially recommended
-<# Import-Module "gsudoModule" #>
 Invoke-Expression (&scoop-search --hook)
 Invoke-Expression (&starship init powershell)
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
