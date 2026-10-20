@@ -60,7 +60,7 @@ c.hide_tab_bar_if_only_one_tab = true
 c.window_close_confirmation = "NeverPrompt"
 
 --= Appearance
-c.font = wezterm.font_with_fallback { 'JetBrainsMono Nerd Font Mono', '霞鹜文楷等宽' }
+c.font = wezterm.font_with_fallback { 'JetBrainsMono Nerd Font Mono', '霞鹜文楷' }
 c.font_size = 14
 c.color_scheme = 'Tokyo Night' -- [Color Schemes](https://wezterm.org/colorschemes/index.html)
 c.window_padding = { left = '0.5cell', right = '0.5cell', top = '0.2cell', bottom = 0, }
