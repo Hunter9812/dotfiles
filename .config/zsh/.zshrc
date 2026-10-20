@@ -102,7 +102,7 @@ alias bat-volt='upower -i $(upower -e | grep battery) | awk "/History \(voltage\
 alias bat-history='upower -i $(upower -e | grep battery) | awk "/History \(rate\):/{r=1;print;next}/History \(voltage\):/{r=0;v=1;print;next}/^  [a-zA-Z]/{v=0} r||v"'
 alias docker_ip_fetcher='docker inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}"'
 alias lazypodman="DOCKER_HOST=unix:///run/user/$(id -u)/podman/podman.sock lazydocker"
-alias conf='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
+alias conf='command git --git-dir=$HOME/.cfg --work-tree=$HOME'
 compdef conf=git
 # See https://github.com/jesseduffield/lazygit/issues/5469#issuecomment-4213154549
 alias confg='lazygit -g $HOME/.cfg -w $HOME'
