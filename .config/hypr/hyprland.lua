@@ -225,6 +225,7 @@ hl.config({
   -- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
   scrolling = {
     column_width = 1.0,
+    direction = "down",
   },
   -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
   dwindle = {
@@ -317,6 +318,7 @@ hl.bind("SUPER + Print", hl.dsp.exec_cmd(
     ' && notify-send -i imv "Screenshot saved"'
 ))
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd('grim -g "$(slurp -d)" - | wl-copy'))
+hl.bind("CTRL + ALT + A", hl.dsp.exec_cmd('mark-shot'))
 hl.bind("ALT + F1", hl.dsp.exec_cmd('grim -g "$(slurp)" - | swappy -f -'))
 
 --= Core binds
@@ -649,11 +651,11 @@ hl.window_rule({
 --= Workspace Rules
 -- See https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 hl.workspace_rule({ workspace = "1", default_name = "browse" })
-hl.workspace_rule({ workspace = "2", default_name = "code", layout_opts = { direction = "down" } })
+hl.workspace_rule({ workspace = "2", default_name = "code" })
 hl.workspace_rule({ workspace = "3", default_name = "play" })
-hl.workspace_rule({ workspace = "9", default_name = "ai", layout_opts = { direction = "down" } })
+hl.workspace_rule({ workspace = "9", default_name = "ai" })
 hl.workspace_rule({ workspace = "10", default_name = "desktop" })
-hl.workspace_rule({ workspace = "special:scratchpad", layout_opts = { direction = "down" } })
+hl.workspace_rule({ workspace = "special:scratchpad" })
 
 -- Smart gaps (ignoring special workspaces)
 hl.workspace_rule({ workspace = "w[tv1]s[false]", gaps_out = 0, gaps_in = 0 })
