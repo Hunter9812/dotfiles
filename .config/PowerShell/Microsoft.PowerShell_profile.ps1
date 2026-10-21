@@ -25,6 +25,7 @@ $env:CARGO_UNSTABLE_SPARSE_REGISTRY = "true"
 #== Abbr
 Set-Alias -Name poweroff    -Value Stop-Computer
 Set-Alias -Name reboot      -Value Restart-Computer
+Set-Alias -Name clip-copy   -Value Set-Clipboard
 Set-Alias -Name grep        -Value findstr
 Set-Alias -Name open        -Value explorer
 Set-Alias -Name s           -Value fastfetch
